@@ -55,16 +55,27 @@ interface Task {
 - Uses `useSensors` with `PointerSensor` and `activationConstraint: { distance: 8 }` to differentiate clicks from drags
 - Drop zones: day columns, inbox, someday, delete zone
 - `isDragging` hides original card; `isDragOverlay` styles the drag preview
+- **Optimistic updates** in `useTasks.ts` for instant UI response (no flickering)
 
 ### Week View
 - Shows Mon-Sun of current week
 - Navigation arrows switch weeks; date button (dd.mm.yyyy) returns to current week
-- No horizontal scrolling — 7 columns fill available space
+- Columns have min-width 140px with horizontal scroll if needed
 
 ### Day Column
-- Simple scrollable list of tasks with drag-and-drop reordering
+- Scrollable list of tasks with drag-and-drop reordering
 - Uses SortableContext for task reordering within a day
 - Tasks sorted by order, with completed tasks at the bottom
+- **InlineTaskCreator** at bottom: title + description fields with + button
+
+### Task Dialogs
+- **TaskCreateDialog** — for creating new tasks (hotkey: `n`)
+- **TaskDialog** — for editing existing tasks (double-click card)
+- Both have quick date buttons: "Сегодня" / "Завтра"
+
+### Task Cards
+- Display title and description (if present)
+- Checkbox, move-to-tomorrow button (→), context menu on right-click
 
 ### Persistence
 - All data stored in IndexedDB via Dexie.js
@@ -81,7 +92,8 @@ Dark theme inspired by Anthropic/Claude:
 ## Localization
 
 UI is in Russian:
-- "Входящие" (Inbox), "Когда-нибудь" (Someday)
+- "Всякое" (Inbox), "Когда-нибудь" (Someday)
 - Day names: "пн", "вт", "ср", "чт", "пт", "сб", "вс"
 - Date format: "16 января 2026"
 - Context menu: "На завтра", "+2 дня", "+1 неделя", "Удалить"
+- Quick dates: "Сегодня", "Завтра"

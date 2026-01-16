@@ -103,6 +103,9 @@ export function TaskCard({
           </div>
           <div className={styles.textContent}>
             <div className={styles.title}>{task.title}</div>
+            {task.description && (
+              <div className={styles.description}>{task.description}</div>
+            )}
           </div>
         </div>
 

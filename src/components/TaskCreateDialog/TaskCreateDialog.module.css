@@ -140,24 +140,7 @@
   opacity: 0.8;
 }
 
-.row {
-  display: flex;
-  gap: var(--space-4);
-}
-
-.row .field {
-  flex: 1;
-}
-
-.duration {
-  display: flex;
-  align-items: flex-end;
-  padding-bottom: var(--space-4);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  white-space: nowrap;
-}
-
+/* Color picker */
 .colorPicker {
   display: flex;
   gap: var(--space-3);
@@ -204,44 +187,13 @@
   background-color: var(--color-task-lavender);
 }
 
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  cursor: pointer;
-}
-
-.checkboxInput {
-  width: 22px;
-  height: 22px;
-  accent-color: var(--color-accent);
-  cursor: pointer;
-}
-
-.checkboxLabel {
-  font-size: var(--font-size-md);
-  color: var(--color-text-primary);
-}
-
+/* Footer */
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--space-5) var(--space-6);
   border-top: 1px solid var(--color-border);
-}
-
-.deleteButton {
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-md);
-  color: var(--color-danger);
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-medium);
-  transition: all var(--transition-fast);
-}
-
-.deleteButton:hover {
-  background-color: var(--color-danger-muted);
 }
 
 .actions {
@@ -263,7 +215,7 @@
   color: var(--color-text-primary);
 }
 
-.saveButton {
+.createButton {
   padding: var(--space-3) var(--space-6);
   border-radius: var(--radius-md);
   background-color: var(--color-accent);
@@ -273,6 +225,6 @@
   transition: all var(--transition-fast);
 }
 
-.saveButton:hover {
+.createButton:hover {
   background-color: var(--color-accent-hover);
 }

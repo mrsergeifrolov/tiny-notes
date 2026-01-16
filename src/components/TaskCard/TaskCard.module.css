@@ -3,7 +3,8 @@
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
   cursor: grab;
-  transition: all var(--transition-fast);
+  /* Avoid transition on transform to prevent dnd-kit conflicts */
+  transition: filter var(--transition-fast), opacity var(--transition-fast);
   user-select: none;
   box-sizing: border-box;
 }
@@ -35,6 +36,11 @@
 }
 
 .isCompleted .title {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.isCompleted .description {
   text-decoration: line-through;
   color: var(--color-text-muted);
 }
@@ -106,12 +112,20 @@
 }
 
 .title {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   color: var(--color-text-primary);
   line-height: var(--line-height-tight);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  margin-top: var(--space-1);
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .moveButton {

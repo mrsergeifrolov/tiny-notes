@@ -1,8 +1,7 @@
-import { useState, useCallback } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { TaskCard } from '../TaskCard/TaskCard';
-import { QuickInput } from '../QuickInput/QuickInput';
+import { InlineTaskCreator } from '../InlineTaskCreator/InlineTaskCreator';
 import { getDayAbbreviation, formatDateWithMonthYear } from '../../utils/date';
 import type { Task } from '../../types';
 import styles from './DayColumn.module.css';
@@ -12,7 +11,7 @@ interface DayColumnProps {
   tasks: Task[];
   isToday: boolean;
   isSelected: boolean;
-  onCreateTask: (title?: string) => void;
+  onQuickCreateTask: (title: string, description?: string) => void;
   onEditTask: (task: Task) => void;
   onToggleComplete: (id: string) => void;
   onMoveToTomorrow: (id: string) => void;
@@ -27,7 +26,7 @@ export function DayColumn({
   tasks,
   isToday,
   isSelected,
-  onCreateTask,
+  onQuickCreateTask,
   onEditTask,
   onToggleComplete,
   onMoveToTomorrow,
@@ -36,19 +35,12 @@ export function DayColumn({
   onDeleteTask,
   onClick,
 }: DayColumnProps) {
-  const [showQuickInput, setShowQuickInput] = useState(false);
-
   const { setNodeRef, isOver } = useDroppable({
     id: `day-${date}`,
   });
 
   const dayAbbrev = getDayAbbreviation(date);
   const fullDate = formatDateWithMonthYear(date);
-
-  const handleQuickCreate = useCallback((title: string) => {
-    onCreateTask(title);
-    setShowQuickInput(false);
-  }, [onCreateTask]);
 
   const incompleteTasks = tasks.filter(t => !t.completed);
   const showFinishButton = isToday && incompleteTasks.length > 0;
@@ -99,21 +91,8 @@ export function DayColumn({
         </div>
       </div>
 
-      <div
-        className={`${styles.footer} ${!showQuickInput ? styles.footerClickable : ''}`}
-        onClick={!showQuickInput ? () => setShowQuickInput(true) : undefined}
-        title={!showQuickInput ? "Добавить задачу" : undefined}
-      >
-        {showQuickInput ? (
-          <QuickInput
-            onSubmit={handleQuickCreate}
-            onCancel={() => setShowQuickInput(false)}
-          />
-        ) : (
-          <div className={styles.footerContent}>
-            <span className={styles.addIcon}>+</span>
-          </div>
-        )}
+      <div className={styles.footer}>
+        <InlineTaskCreator onSubmit={onQuickCreateTask} />
       </div>
     </div>
   );

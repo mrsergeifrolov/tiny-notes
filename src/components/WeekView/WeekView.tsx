@@ -7,7 +7,7 @@ import styles from './WeekView.module.css';
 
 interface WeekViewProps {
   getTasksByDate: (date: string) => Task[];
-  onCreateTask: (date: string, title?: string) => void;
+  onQuickCreateTask: (date: string, title?: string, description?: string) => void;
   onEditTask: (task: Task) => void;
   onToggleComplete: (id: string) => void;
   onMoveToTomorrow: (id: string) => void;
@@ -20,7 +20,7 @@ interface WeekViewProps {
 
 export function WeekView({
   getTasksByDate,
-  onCreateTask,
+  onQuickCreateTask,
   onEditTask,
   onToggleComplete,
   onMoveToTomorrow,
@@ -78,7 +78,7 @@ export function WeekView({
             tasks={getTasksByDate(date)}
             isToday={date === today}
             isSelected={date === selectedDate}
-            onCreateTask={(title) => onCreateTask(date, title)}
+            onQuickCreateTask={(title, description) => onQuickCreateTask(date, title, description)}
             onEditTask={onEditTask}
             onToggleComplete={onToggleComplete}
             onMoveToTomorrow={onMoveToTomorrow}

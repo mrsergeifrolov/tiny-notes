@@ -1,14 +1,20 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { KeyboardEvent } from 'react';
-import type { Task, TaskColor } from '../../types';
+import type { TaskArea, TaskColor } from '../../types';
 import { getToday, addDaysToDate, formatDateWithMonthYear } from '../../utils/date';
-import styles from './TaskDialog.module.css';
+import styles from './TaskCreateDialog.module.css';
 
-interface TaskDialogProps {
-  task: Task;
+interface TaskCreateDialogProps {
+  defaultArea: TaskArea;
+  defaultDate?: string;
   onClose: () => void;
-  onSave: (updates: Partial<Task>) => void;
-  onDelete: () => void;
+  onCreate: (data: {
+    title: string;
+    description?: string;
+    date?: string;
+    color?: TaskColor;
+    area: TaskArea;
+  }) => void;
 }
 
 const colors: Array<TaskColor | undefined> = [
@@ -29,19 +35,19 @@ const colorClasses: Record<string, string> = {
   lavender: styles.colorLavender,
 };
 
-export function TaskDialog({ task, onClose, onSave, onDelete }: TaskDialogProps) {
+export function TaskCreateDialog({
+  defaultArea,
+  defaultDate,
+  onClose,
+  onCreate,
+}: TaskCreateDialogProps) {
   const today = getToday();
   const tomorrow = addDaysToDate(today, 1);
 
-  const [title, setTitle] = useState(task.title);
-  const [description, setDescription] = useState(task.description ?? '');
-  const [date, setDate] = useState(task.date ?? '');
-  const [color, setColor] = useState<TaskColor | undefined>(task.color);
-  const [completed, setCompleted] = useState(task.completed);
-
-  const setQuickDate = useCallback((quickDate: string) => {
-    setDate(quickDate);
-  }, []);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState(defaultDate ?? (defaultArea === 'week' ? today : ''));
+  const [color, setColor] = useState<TaskColor | undefined>(undefined);
 
   useEffect(() => {
     const handleEscape = (e: globalThis.KeyboardEvent) => {
@@ -53,24 +59,26 @@ export function TaskDialog({ task, onClose, onSave, onDelete }: TaskDialogProps)
     return () => document.removeEventListener('keydown', handleEscape);
   }, [onClose]);
 
-  const handleSave = useCallback(() => {
+  const handleCreate = useCallback(() => {
     if (!title.trim()) return;
 
-    onSave({
+    const area: TaskArea = date ? 'week' : defaultArea;
+
+    onCreate({
       title: title.trim(),
       description: description.trim() || undefined,
       date: date || undefined,
       color,
-      completed,
+      area,
     });
-  }, [title, description, date, color, completed, onSave]);
+  }, [title, description, date, color, defaultArea, onCreate]);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
-      handleSave();
+      handleCreate();
     }
-  }, [handleSave]);
+  }, [handleCreate]);
 
   const handleOverlayClick = useCallback((e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -78,11 +86,15 @@ export function TaskDialog({ task, onClose, onSave, onDelete }: TaskDialogProps)
     }
   }, [onClose]);
 
+  const setQuickDate = useCallback((quickDate: string) => {
+    setDate(quickDate);
+  }, []);
+
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={styles.dialog} onKeyDown={handleKeyDown}>
         <div className={styles.header}>
-          <span className={styles.title}>Редактировать задачу</span>
+          <span className={styles.title}>Новая задача</span>
           <button className={styles.closeButton} onClick={onClose}>
             ×
           </button>
@@ -152,28 +164,16 @@ export function TaskDialog({ task, onClose, onSave, onDelete }: TaskDialogProps)
               ))}
             </div>
           </div>
-
-          <label className={styles.checkbox}>
-            <input
-              type="checkbox"
-              className={styles.checkboxInput}
-              checked={completed}
-              onChange={(e) => setCompleted(e.target.checked)}
-            />
-            <span className={styles.checkboxLabel}>Отметить как завершённое</span>
-          </label>
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.deleteButton} onClick={onDelete}>
-            Удалить
-          </button>
+          <div />
           <div className={styles.actions}>
             <button className={styles.cancelButton} onClick={onClose}>
               Отмена
             </button>
-            <button className={styles.saveButton} onClick={handleSave}>
-              Сохранить
+            <button className={styles.createButton} onClick={handleCreate}>
+              Создать
             </button>
           </div>
         </div>

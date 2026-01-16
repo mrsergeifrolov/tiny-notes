@@ -1,0 +1,97 @@
+.inlineCreator {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+  transition: border-color var(--transition-fast);
+}
+
+.inlineCreator:focus-within {
+  border-color: var(--color-accent-muted);
+}
+
+.inputsWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.titleInput {
+  width: 100%;
+  padding: var(--space-2) var(--space-2);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: background-color var(--transition-fast);
+}
+
+.titleInput:focus {
+  background-color: var(--color-bg-secondary);
+  outline: none;
+}
+
+.titleInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.descriptionInput {
+  width: 100%;
+  padding: var(--space-2) var(--space-2);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  font-family: inherit;
+  resize: none;
+  line-height: var(--line-height-normal);
+  transition: background-color var(--transition-fast);
+}
+
+.descriptionInput:focus {
+  background-color: var(--color-bg-secondary);
+  outline: none;
+}
+
+.descriptionInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.submitButton {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitButton.active {
+  background-color: var(--color-accent-muted);
+  color: var(--color-accent);
+}
+
+.submitButton.active:hover {
+  background-color: var(--color-accent);
+  color: white;
+}

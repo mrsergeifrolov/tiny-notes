@@ -49,5 +49,6 @@
 .daysContainer {
   flex: 1;
   display: flex;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }

@@ -1,6 +1,7 @@
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { TaskCard } from '../TaskCard/TaskCard';
+import { InlineTaskCreator } from '../InlineTaskCreator/InlineTaskCreator';
 import type { Task, TaskArea } from '../../types';
 import styles from './Sidebar.module.css';
 
@@ -8,7 +9,7 @@ interface SidebarProps {
   area: TaskArea;
   title: string;
   tasks: Task[];
-  onCreateTask: () => void;
+  onQuickCreateTask: (title: string, description?: string) => void;
   onEditTask: (task: Task) => void;
   onToggleComplete: (id: string) => void;
   onMoveToTomorrow: (id: string) => void;
@@ -18,7 +19,7 @@ export function Sidebar({
   area,
   title,
   tasks,
-  onCreateTask,
+  onQuickCreateTask,
   onEditTask,
   onToggleComplete,
   onMoveToTomorrow,
@@ -64,13 +65,7 @@ export function Sidebar({
       </div>
 
       <div className={styles.footer}>
-        <button
-          className={styles.addButton}
-          onClick={onCreateTask}
-          title="Добавить задачу"
-        >
-          +
-        </button>
+        <InlineTaskCreator onSubmit={onQuickCreateTask} />
       </div>
     </div>
   );

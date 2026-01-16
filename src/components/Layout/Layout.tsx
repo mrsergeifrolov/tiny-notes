@@ -5,10 +5,11 @@ import { Sidebar } from '../Sidebar/Sidebar';
 import { WeekView } from '../WeekView/WeekView';
 import { DeleteZone } from '../DeleteZone/DeleteZone';
 import { TaskDialog } from '../TaskDialog/TaskDialog';
+import { TaskCreateDialog } from '../TaskCreateDialog/TaskCreateDialog';
 import { TaskCard } from '../TaskCard/TaskCard';
 import { useTasks } from '../../hooks/useTasks';
 import { useKeyboard } from '../../hooks/useKeyboard';
-import type { Task, TaskArea } from '../../types';
+import type { Task, TaskArea, TaskColor } from '../../types';
 import styles from './Layout.module.css';
 
 export function Layout() {
@@ -36,17 +37,39 @@ export function Layout() {
   } = useTasks();
 
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [creatingTask, setCreatingTask] = useState<{ area: TaskArea; date?: string } | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const handleCreateTask = useCallback(async (area: TaskArea, date?: string, title?: string) => {
-    const task = await createTask(title || 'New task', area, { date });
-    // Only open dialog if no title was provided (from + button)
-    if (!title) {
-      setEditingTask(task);
+  const handleOpenCreateDialog = useCallback((area: TaskArea, date?: string) => {
+    setCreatingTask({ area, date });
+  }, []);
+
+  const handleQuickCreateTask = useCallback(async (area: TaskArea, date?: string, title?: string, description?: string) => {
+    if (title) {
+      await createTask(title, area, { date, description });
     }
   }, [createTask]);
+
+  const handleCreateTask = useCallback(async (data: {
+    title: string;
+    description?: string;
+    date?: string;
+    color?: TaskColor;
+    area: TaskArea;
+  }) => {
+    await createTask(data.title, data.area, {
+      date: data.date,
+      description: data.description,
+      color: data.color,
+    });
+    setCreatingTask(null);
+  }, [createTask]);
+
+  const handleCloseCreateDialog = useCallback(() => {
+    setCreatingTask(null);
+  }, []);
 
   const handleEditTask = useCallback((task: Task) => {
     setEditingTask(task);
@@ -139,7 +162,7 @@ export function Layout() {
   }, [deleteTask, moveTask, getTasksByDate, getTasksByArea, reorderTasks]);
 
   useKeyboard({
-    onNewTask: () => handleCreateTask('inbox'),
+    onNewTask: () => handleOpenCreateDialog('inbox'),
     selectedDate,
     setSelectedDate,
   });
@@ -156,9 +179,9 @@ export function Layout() {
         <div className={styles.sidebar}>
           <Sidebar
             area="inbox"
-            title="Входящие"
+            title="Всякое"
             tasks={getTasksByArea('inbox')}
-            onCreateTask={() => handleCreateTask('inbox')}
+            onQuickCreateTask={(title, description) => handleQuickCreateTask('inbox', undefined, title, description)}
             onEditTask={handleEditTask}
             onToggleComplete={toggleComplete}
             onMoveToTomorrow={moveToTomorrow}
@@ -168,7 +191,7 @@ export function Layout() {
         <div className={styles.weekView}>
           <WeekView
             getTasksByDate={getTasksByDate}
-            onCreateTask={(date, title) => handleCreateTask('week', date, title)}
+            onQuickCreateTask={(date, title, description) => handleQuickCreateTask('week', date, title, description)}
             onEditTask={handleEditTask}
             onToggleComplete={toggleComplete}
             onMoveToTomorrow={moveToTomorrow}
@@ -185,7 +208,7 @@ export function Layout() {
             area="someday"
             title="Когда-нибудь"
             tasks={getTasksByArea('someday')}
-            onCreateTask={() => handleCreateTask('someday')}
+            onQuickCreateTask={(title, description) => handleQuickCreateTask('someday', undefined, title, description)}
             onEditTask={handleEditTask}
             onToggleComplete={toggleComplete}
             onMoveToTomorrow={moveToTomorrow}
@@ -213,6 +236,15 @@ export function Layout() {
           onClose={handleCloseDialog}
           onSave={handleSaveTask}
           onDelete={handleDeleteTask}
+        />
+      )}
+
+      {creatingTask && (
+        <TaskCreateDialog
+          defaultArea={creatingTask.area}
+          defaultDate={creatingTask.date}
+          onClose={handleCloseCreateDialog}
+          onCreate={handleCreateTask}
         />
       )}
     </DndContext>
