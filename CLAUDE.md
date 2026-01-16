@@ -58,6 +58,7 @@ interface Task {
 - Drop zones: day columns, inbox, someday, delete zone
 - `isDragging` hides original card; `isDragOverlay` styles the drag preview
 - **Optimistic updates** in `useTasks.ts` for instant UI response (no flickering)
+- **Custom collision detection** (`deleteZonePriorityCollision`) prioritizes delete-zone over day columns when both are under the cursor
 
 ### Week View
 - Shows Mon-Sun of current week
@@ -65,6 +66,8 @@ interface Task {
 - Navigation arrows centered around "Сегодня" button; arrows switch weeks
 - Calendar picker (📅) in left corner for quick navigation to any date
 - Columns have min-width 140px with horizontal scroll if needed
+- **Lazy week loading**: only loads current week initially, fetches other weeks on navigation
+- **Sync indicator**: shows sync status (syncing/synced/error) in header
 
 ### Day Column
 - Scrollable list of tasks with drag-and-drop reordering

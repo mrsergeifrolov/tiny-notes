@@ -1,16 +1,30 @@
 import { useState, useCallback } from 'react';
 import { DndContext, pointerWithin, DragOverlay, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
-import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import type { DragEndEvent, DragStartEvent, CollisionDetection } from '@dnd-kit/core';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { WeekView } from '../WeekView/WeekView';
 import { DeleteZone } from '../DeleteZone/DeleteZone';
 import { TaskDialog } from '../TaskDialog/TaskDialog';
 import { TaskCreateDialog } from '../TaskCreateDialog/TaskCreateDialog';
 import { TaskCard } from '../TaskCard/TaskCard';
+import { LayoutSkeleton } from '../Skeleton/Skeleton';
 import { useTasks } from '../../hooks/useTasks';
 import { useKeyboard } from '../../hooks/useKeyboard';
 import type { Task, TaskArea, TaskColor } from '../../types';
 import styles from './Layout.module.css';
+
+// Custom collision detection that prioritizes delete-zone
+const deleteZonePriorityCollision: CollisionDetection = (args) => {
+  const collisions = pointerWithin(args);
+
+  // If delete-zone is among collisions, prioritize it
+  const deleteZoneCollision = collisions.find(c => c.id === 'delete-zone');
+  if (deleteZoneCollision) {
+    return [deleteZoneCollision];
+  }
+
+  return collisions;
+};
 
 export function Layout() {
   // Configure sensors with activation constraint to allow clicks
@@ -23,6 +37,9 @@ export function Layout() {
   );
 
   const {
+    loading,
+    weekLoading,
+    syncStatus,
     getTasksByArea,
     getTasksByDate,
     createTask,
@@ -34,6 +51,7 @@ export function Layout() {
     moveByDays,
     reorderTasks,
     finishDay,
+    loadWeek,
   } = useTasks();
 
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -167,10 +185,15 @@ export function Layout() {
     setSelectedDate,
   });
 
+  // Show skeleton while initial loading
+  if (loading) {
+    return <LayoutSkeleton />;
+  }
+
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={pointerWithin}
+      collisionDetection={deleteZonePriorityCollision}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
@@ -201,6 +224,9 @@ export function Layout() {
             onDeleteTask={deleteTask}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
+            weekLoading={weekLoading}
+            onLoadWeek={loadWeek}
+            syncStatus={syncStatus}
           />
         </div>
 

@@ -1,0 +1,188 @@
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 25%,
+    var(--color-surface-hover) 50%,
+    var(--color-bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Task Card Skeleton */
+.taskCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-border-subtle) 25%,
+    var(--color-border) 50%,
+    var(--color-border-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.title {
+  height: 16px;
+  width: 80%;
+}
+
+.description {
+  height: 12px;
+  width: 60%;
+}
+
+/* Day Column Skeleton */
+.dayColumn {
+  flex: 1;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-3);
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+.dayColumn:last-child {
+  border-right: none;
+}
+
+.dayHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.dayName {
+  height: 14px;
+  width: 24px;
+}
+
+.dayDate {
+  height: 12px;
+  width: 50px;
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar Skeleton */
+.sidebar {
+  padding: var(--space-4);
+}
+
+.sidebarTitle {
+  height: 18px;
+  width: 100px;
+  margin-bottom: var(--space-4);
+}
+
+/* Layout Skeleton */
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--color-bg-primary);
+}
+
+.sidebarContainer {
+  width: 18%;
+  min-width: 240px;
+  max-width: 320px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border-subtle);
+  background-color: var(--color-bg-secondary);
+}
+
+.sidebarContainer:last-child {
+  border-right: none;
+  border-left: 1px solid var(--color-border-subtle);
+}
+
+.weekContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.weekHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background-color: var(--color-bg-secondary);
+  gap: var(--space-4);
+}
+
+.headerButton {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+}
+
+.headerCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.todayButton {
+  height: 40px;
+  width: 200px;
+  border-radius: var(--radius-md);
+}
+
+.weekRange {
+  height: 14px;
+  width: 180px;
+}
+
+.headerRight {
+  width: 100px;
+}
+
+.daysContainer {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+}

@@ -17,7 +17,9 @@ All components use CSS Modules (`.module.css` files).
 | **CalendarPicker** | Date picker modal using react-day-picker |
 | **QuickInput** | Inline text input for fast task creation |
 | **ContextMenu** | Right-click menu for task actions |
-| **DeleteZone** | Drop zone that appears during drag |
+| **DeleteZone** | Full-width drop zone at bottom during drag |
+| **Skeleton** | Loading skeleton for initial app load |
+| **SyncIndicator** | Shows sync status in WeekView header |
 
 ## Patterns
 
@@ -37,12 +39,20 @@ All components use CSS Modules (`.module.css` files).
 - Sensors configured with `distance: 8` activation constraint
 - Handles all drag events (start, over, end)
 - Manages editingTask state for TaskDialog
+- Custom `deleteZonePriorityCollision` collision detection prioritizes delete-zone
+
+### DeleteZone
+- Full-width at bottom (left: 24px, right: 24px), height: 192px
+- Appears only during drag (`isVisible` prop)
+- Uses `useDroppable` with id `delete-zone`
+- Custom collision detection in Layout ensures drops register correctly
 
 ### RichTextEditor
 - Wraps Tiptap editor with StarterKit + Placeholder + Link + Underline extensions
 - Toolbar: Bold, Italic, Underline, Strike | Code, Blockquote, Link | bullet list, numbered list
 - Returns HTML string; handles empty content normalization
 - Link insertion via prompt dialog
+- Fixed height: 400px with overflow-y: auto for scrolling when needed
 
 ### CalendarPicker
 - Modal with react-day-picker for date selection

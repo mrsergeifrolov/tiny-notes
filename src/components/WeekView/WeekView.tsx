@@ -1,7 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { addDays, startOfWeek, differenceInWeeks, parseISO } from 'date-fns';
 import { DayColumn } from '../DayColumn/DayColumn';
 import { CalendarPicker } from '../CalendarPicker/CalendarPicker';
+import { SyncIndicator, type SyncStatus } from '../SyncIndicator/SyncIndicator';
 import { getToday, getWeekDates, formatDateNumeric, formatWeekRange } from '../../utils/date';
 import type { Task } from '../../types';
 import styles from './WeekView.module.css';
@@ -17,6 +18,9 @@ interface WeekViewProps {
   onDeleteTask: (id: string) => void;
   selectedDate: string | null;
   setSelectedDate: (date: string | null) => void;
+  weekLoading: boolean;
+  onLoadWeek: (weekOffset: number) => Promise<void>;
+  syncStatus: SyncStatus;
 }
 
 export function WeekView({
@@ -30,6 +34,9 @@ export function WeekView({
   onDeleteTask,
   selectedDate,
   setSelectedDate,
+  weekLoading,
+  onLoadWeek,
+  syncStatus,
 }: WeekViewProps) {
   const [weekOffset, setWeekOffset] = useState(0);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -38,6 +45,11 @@ export function WeekView({
   // Get dates for current week view (Mon-Sun)
   const baseDate = addDays(new Date(), weekOffset * 7);
   const dates = getWeekDates(baseDate);
+
+  // Load week data when offset changes
+  useEffect(() => {
+    onLoadWeek(weekOffset);
+  }, [weekOffset, onLoadWeek]);
 
   const goToToday = useCallback(() => {
     setWeekOffset(0);
@@ -96,7 +108,9 @@ export function WeekView({
           </div>
         </div>
 
-        <div className={styles.headerRight} />
+        <div className={styles.headerRight}>
+          <SyncIndicator status={syncStatus} />
+        </div>
       </div>
 
       {showCalendar && (
@@ -107,7 +121,7 @@ export function WeekView({
         />
       )}
 
-      <div className={styles.daysContainer}>
+      <div className={`${styles.daysContainer} ${weekLoading ? styles.fading : ''}`}>
         {dates.map(date => (
           <DayColumn
             key={date}

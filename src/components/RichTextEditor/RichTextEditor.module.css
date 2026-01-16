@@ -49,8 +49,7 @@
 
 .editorContent {
   padding: var(--space-3);
-  min-height: 80px;
-  max-height: 200px;
+  height: 400px;
   overflow-y: auto;
   color: var(--color-text-primary);
   font-size: var(--font-size-md);
@@ -63,7 +62,7 @@
 
 .editor :global(.ProseMirror) {
   outline: none;
-  min-height: 60px;
+  min-height: 100%;
 }
 
 .editor :global(.ProseMirror p) {

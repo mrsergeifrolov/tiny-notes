@@ -104,4 +104,10 @@
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
+  transition: opacity var(--transition-normal);
+}
+
+.daysContainer.fading {
+  opacity: 0.5;
+  pointer-events: none;
 }
