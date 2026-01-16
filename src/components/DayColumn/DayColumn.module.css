@@ -1,0 +1,130 @@
+.dayColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-right: 1px solid #2d2d2d;
+  background-color: #1a1a1a;
+  transition: background-color 150ms ease;
+  min-width: 0;
+}
+
+.dayColumn:last-child {
+  border-right: none;
+}
+
+.isToday {
+  background-color: rgba(217, 119, 6, 0.05);
+}
+
+.isToday .header {
+  border-bottom-color: rgba(217, 119, 6, 0.3);
+}
+
+.isSelected {
+  background-color: rgba(217, 119, 6, 0.1);
+}
+
+.isOver {
+  background-color: rgba(217, 119, 6, 0.15);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+  border-bottom: 1px solid #2d2d2d;
+  cursor: pointer;
+}
+
+.dayName {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b6b6b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.isToday .dayName {
+  color: #D97706;
+}
+
+.dateNumber {
+  font-size: 20px;
+  font-weight: 600;
+  color: #a0a0a0;
+  margin-top: 2px;
+}
+
+.isToday .dateNumber {
+  color: #D97706;
+}
+
+.taskList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dropZone {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dropZone.isOver {
+  background-color: rgba(217, 119, 6, 0.1);
+  border-radius: 8px;
+}
+
+.footer {
+  padding: 8px;
+  border-top: 1px solid #2d2d2d;
+  display: flex;
+  gap: 4px;
+}
+
+.addButton {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  color: #6b6b6b;
+  font-size: 12px;
+  text-align: center;
+  transition: all 150ms ease;
+}
+
+.addButton:hover {
+  background-color: #2d2d2d;
+  color: #a0a0a0;
+}
+
+.finishButton {
+  padding: 8px;
+  border-radius: 6px;
+  color: #6b6b6b;
+  font-size: 11px;
+  transition: all 150ms ease;
+}
+
+.finishButton:hover {
+  background-color: rgba(217, 119, 6, 0.2);
+  color: #D97706;
+}
+
+.quickInput {
+  width: 100%;
+  padding: 8px;
+  background-color: #2d2d2d;
+  border-radius: 6px;
+  color: #f5f5f5;
+  font-size: 13px;
+}
+
+.quickInput::placeholder {
+  color: #6b6b6b;
+}

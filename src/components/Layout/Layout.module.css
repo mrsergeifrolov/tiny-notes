@@ -1,0 +1,30 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+.sidebar {
+  width: 15%;
+  min-width: 200px;
+  max-width: 280px;
+  flex-shrink: 0;
+  border-right: 1px solid #404040;
+  display: flex;
+  flex-direction: column;
+  background-color: #242424;
+}
+
+.sidebarRight {
+  border-right: none;
+  border-left: 1px solid #404040;
+}
+
+.weekView {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

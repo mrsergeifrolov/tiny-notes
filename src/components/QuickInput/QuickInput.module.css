@@ -1,0 +1,23 @@
+.quickInput {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 10px;
+  background-color: #2d2d2d;
+  border: 1px solid #404040;
+  border-radius: 6px;
+  color: #f5f5f5;
+  font-size: 13px;
+  transition: border-color 150ms ease;
+}
+
+.input:focus {
+  border-color: #D97706;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #6b6b6b;
+}

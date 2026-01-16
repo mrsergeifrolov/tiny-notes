@@ -1,0 +1,53 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.menu {
+  position: fixed;
+  background-color: #2d2d2d;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  padding: 4px;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 101;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #f5f5f5;
+  font-size: 13px;
+  text-align: left;
+  transition: background-color 150ms ease;
+}
+
+.item:hover {
+  background-color: #404040;
+}
+
+.itemDanger {
+  color: #DC2626;
+}
+
+.itemDanger:hover {
+  background-color: rgba(220, 38, 38, 0.2);
+}
+
+.separator {
+  height: 1px;
+  background-color: #404040;
+  margin: 4px 0;
+}
+
+.icon {
+  width: 16px;
+  text-align: center;
+  opacity: 0.7;
+}

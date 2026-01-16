@@ -1,0 +1,39 @@
+.deleteZone {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  background-color: rgba(220, 38, 38, 0.2);
+  border: 2px dashed #DC2626;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 200ms ease;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.isOver {
+  background-color: rgba(220, 38, 38, 0.4);
+  border-style: solid;
+  transform: scale(1.1);
+}
+
+.icon {
+  font-size: 32px;
+  color: #DC2626;
+}
+
+.isOver .icon {
+  transform: scale(1.2);
+}

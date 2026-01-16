@@ -1,0 +1,219 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.dialog {
+  background-color: #2d2d2d;
+  border: 1px solid #404040;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #404040;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f5f5f5;
+}
+
+.closeButton {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: #a0a0a0;
+  font-size: 18px;
+  transition: all 150ms ease;
+}
+
+.closeButton:hover {
+  background-color: #404040;
+  color: #f5f5f5;
+}
+
+.content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #1a1a1a;
+  border: 1px solid #404040;
+  border-radius: 6px;
+  color: #f5f5f5;
+  font-size: 14px;
+  transition: border-color 150ms ease;
+}
+
+.input:focus {
+  border-color: #D97706;
+  outline: none;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.row .field {
+  flex: 1;
+}
+
+.colorPicker {
+  display: flex;
+  gap: 8px;
+}
+
+.colorOption {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.colorOption:hover {
+  transform: scale(1.1);
+}
+
+.colorOption.selected {
+  border-color: #f5f5f5;
+}
+
+.colorDefault {
+  background-color: #3d3d3d;
+}
+
+.colorOrange {
+  background-color: #D97706;
+}
+
+.colorTerracotta {
+  background-color: #C2410C;
+}
+
+.colorGrayBlue {
+  background-color: #64748B;
+}
+
+.colorGreen {
+  background-color: #059669;
+}
+
+.colorLavender {
+  background-color: #7C3AED;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  width: 18px;
+  height: 18px;
+  accent-color: #D97706;
+  cursor: pointer;
+}
+
+.checkboxLabel {
+  font-size: 14px;
+  color: #f5f5f5;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-top: 1px solid #404040;
+}
+
+.deleteButton {
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: #DC2626;
+  font-size: 14px;
+  transition: all 150ms ease;
+}
+
+.deleteButton:hover {
+  background-color: rgba(220, 38, 38, 0.2);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cancelButton {
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: #a0a0a0;
+  font-size: 14px;
+  transition: all 150ms ease;
+}
+
+.cancelButton:hover {
+  background-color: #404040;
+  color: #f5f5f5;
+}
+
+.saveButton {
+  padding: 10px 20px;
+  border-radius: 6px;
+  background-color: #D97706;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 150ms ease;
+}
+
+.saveButton:hover {
+  background-color: #B45309;
+}
