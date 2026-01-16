@@ -6,7 +6,7 @@ Minimalist task management app with three areas: Inbox, Week view, and Someday.
 
 - **React 18** + **TypeScript**
 - **Vite** — build tool and dev server
-- **Dexie.js** — IndexedDB wrapper for local storage
+- **Supabase** — PostgreSQL cloud database (@supabase/supabase-js)
 - **dnd-kit** — drag-and-drop (@dnd-kit/core, @dnd-kit/sortable)
 - **date-fns** — date utilities with Russian locale
 - **Tiptap** — WYSIWYG editor (@tiptap/react, @tiptap/starter-kit, @tiptap/extension-link, @tiptap/extension-underline)
@@ -18,8 +18,8 @@ Minimalist task management app with three areas: Inbox, Week view, and Someday.
 ```
 src/
 ├── components/     # React components with CSS Modules
-├── db/             # Dexie.js database schema
 ├── hooks/          # Custom React hooks (useTasks, useKeyboard)
+├── lib/            # Supabase client configuration
 ├── styles/         # Global styles and theme
 ├── types/          # TypeScript interfaces
 └── utils/          # Date utilities
@@ -86,9 +86,18 @@ interface Task {
 - Context menu available in all areas (inbox, week, someday) with delete option
 
 ### Persistence
-- All data stored in IndexedDB via Dexie.js
-- Database name: `TinyNotesDB`
-- Single `tasks` table with indexes on `area`, `date`, `order`
+- All data stored in Supabase (PostgreSQL cloud database)
+- Project: `tiny-notes` (eu-north-1 region)
+- Single `tasks` table with indexes on `area`, `date`
+- Row Level Security enabled with open policy (single-user app)
+- Optimistic updates with rollback on error
+
+### Environment Variables
+```bash
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+```
+Copy `.env.example` to `.env` and fill in your Supabase credentials.
 
 ## Styling
 
