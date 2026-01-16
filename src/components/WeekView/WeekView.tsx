@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
-import { addDays } from 'date-fns';
+import { addDays, startOfWeek, differenceInWeeks, parseISO } from 'date-fns';
 import { DayColumn } from '../DayColumn/DayColumn';
-import { getToday, getWeekDates, formatDateNumeric } from '../../utils/date';
+import { CalendarPicker } from '../CalendarPicker/CalendarPicker';
+import { getToday, getWeekDates, formatDateNumeric, formatWeekRange } from '../../utils/date';
 import type { Task } from '../../types';
 import styles from './WeekView.module.css';
 
@@ -31,6 +32,7 @@ export function WeekView({
   setSelectedDate,
 }: WeekViewProps) {
   const [weekOffset, setWeekOffset] = useState(0);
+  const [showCalendar, setShowCalendar] = useState(false);
   const today = getToday();
 
   // Get dates for current week view (Mon-Sun)
@@ -45,30 +47,64 @@ export function WeekView({
     setWeekOffset(prev => direction === 'next' ? prev + 1 : prev - 1);
   }, []);
 
+  const handleCalendarDateSelect = useCallback((dateStr: string) => {
+    const selected = parseISO(dateStr);
+    const todayDate = new Date();
+    const weekStart = startOfWeek(todayDate, { weekStartsOn: 1 });
+    const selectedWeekStart = startOfWeek(selected, { weekStartsOn: 1 });
+    const weekDiff = differenceInWeeks(selectedWeekStart, weekStart);
+
+    setWeekOffset(weekDiff);
+    setShowCalendar(false);
+  }, []);
+
   return (
     <div className={styles.weekView}>
       <div className={styles.header}>
-        <button
-          className={styles.navButton}
-          onClick={() => navigateWeek('prev')}
-          title="Предыдущая неделя"
-        >
-          ←
-        </button>
-        <button
-          className={styles.todayButton}
-          onClick={goToToday}
-        >
-          {formatDateNumeric(new Date())}
-        </button>
-        <button
-          className={styles.navButton}
-          onClick={() => navigateWeek('next')}
-          title="Следующая неделя"
-        >
-          →
-        </button>
+        <div className={styles.headerLeft}>
+          <button
+            className={styles.navButton}
+            onClick={() => navigateWeek('prev')}
+            title="Предыдущая неделя"
+          >
+            ←
+          </button>
+        </div>
+
+        <div className={styles.headerCenter}>
+          <button className={styles.todayButton} onClick={goToToday}>
+            Сегодня ({formatDateNumeric(new Date())})
+          </button>
+          <div className={styles.weekRange}>
+            {formatWeekRange(dates)}
+          </div>
+        </div>
+
+        <div className={styles.headerRight}>
+          <button
+            className={styles.navButton}
+            onClick={() => navigateWeek('next')}
+            title="Следующая неделя"
+          >
+            →
+          </button>
+          <button
+            className={styles.calendarButton}
+            onClick={() => setShowCalendar(true)}
+            title="Выбрать дату"
+          >
+            📅
+          </button>
+        </div>
       </div>
+
+      {showCalendar && (
+        <CalendarPicker
+          selectedDate={today}
+          onDateSelect={handleCalendarDateSelect}
+          onClose={() => setShowCalendar(false)}
+        />
+      )}
 
       <div className={styles.daysContainer}>
         {dates.map(date => (

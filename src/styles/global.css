@@ -27,6 +27,7 @@
   --color-accent-hover: #c4664a;
   --color-accent-muted: rgba(217, 119, 87, 0.15);
   --color-accent-subtle: rgba(217, 119, 87, 0.08);
+  --color-text-on-accent: #131314;
 
   /* Task priority colors - refined palette */
   --color-task-default: #3d3d40;

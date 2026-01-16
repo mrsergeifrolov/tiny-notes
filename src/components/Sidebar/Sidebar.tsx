@@ -13,6 +13,7 @@ interface SidebarProps {
   onEditTask: (task: Task) => void;
   onToggleComplete: (id: string) => void;
   onMoveToTomorrow: (id: string) => void;
+  onDeleteTask: (id: string) => void;
 }
 
 export function Sidebar({
@@ -23,12 +24,13 @@ export function Sidebar({
   onEditTask,
   onToggleComplete,
   onMoveToTomorrow,
+  onDeleteTask,
 }: SidebarProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: area,
   });
 
-  const emptyMessage = area === 'inbox' ? 'Нет задач' : 'Нет задач';
+  const emptyMessage = 'Нет задач';
 
   return (
     <div className={styles.sidebar}>
@@ -53,6 +55,7 @@ export function Sidebar({
                   onEdit={() => onEditTask(task)}
                   onToggleComplete={() => onToggleComplete(task.id)}
                   onMoveToTomorrow={() => onMoveToTomorrow(task.id)}
+                  onDelete={() => onDeleteTask(task.id)}
                 />
               ))
             ) : (

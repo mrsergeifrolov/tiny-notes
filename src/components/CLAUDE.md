@@ -12,6 +12,9 @@ All components use CSS Modules (`.module.css` files).
 | **Sidebar** | Inbox and Someday areas |
 | **TaskCard** | Draggable task card with checkbox |
 | **TaskDialog** | Modal for editing task details |
+| **TaskCreateDialog** | Modal for creating new tasks |
+| **RichTextEditor** | Tiptap WYSIWYG editor for description |
+| **CalendarPicker** | Date picker modal using react-day-picker |
 | **QuickInput** | Inline text input for fast task creation |
 | **ContextMenu** | Right-click menu for task actions |
 | **DeleteZone** | Drop zone that appears during drag |
@@ -34,3 +37,13 @@ All components use CSS Modules (`.module.css` files).
 - Sensors configured with `distance: 8` activation constraint
 - Handles all drag events (start, over, end)
 - Manages editingTask state for TaskDialog
+
+### RichTextEditor
+- Wraps Tiptap editor with StarterKit + Placeholder extensions
+- Toolbar: Bold (B), Italic (I), bullet list (•), numbered list (1.)
+- Returns HTML string; handles empty content normalization
+
+### CalendarPicker
+- Modal with react-day-picker for date selection
+- Russian locale, styled for dark theme
+- Used in WeekView header for quick week navigation

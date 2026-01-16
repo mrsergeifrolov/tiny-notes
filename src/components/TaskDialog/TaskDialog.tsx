@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { KeyboardEvent } from 'react';
-import type { Task, TaskColor } from '../../types';
+import type { Task, TaskColor, TaskArea } from '../../types';
 import { getToday, addDaysToDate, formatDateWithMonthYear } from '../../utils/date';
+import { RichTextEditor } from '../RichTextEditor/RichTextEditor';
 import styles from './TaskDialog.module.css';
 
 interface TaskDialogProps {
@@ -56,14 +57,18 @@ export function TaskDialog({ task, onClose, onSave, onDelete }: TaskDialogProps)
   const handleSave = useCallback(() => {
     if (!title.trim()) return;
 
+    // Determine area based on date: if date set -> 'week', otherwise keep original area
+    const newArea: TaskArea = date ? 'week' : (task.area === 'week' ? 'inbox' : task.area);
+
     onSave({
       title: title.trim(),
       description: description.trim() || undefined,
       date: date || undefined,
+      area: newArea,
       color,
       completed,
     });
-  }, [title, description, date, color, completed, onSave]);
+  }, [title, description, date, color, completed, task.area, onSave]);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
@@ -103,10 +108,9 @@ export function TaskDialog({ task, onClose, onSave, onDelete }: TaskDialogProps)
 
           <div className={styles.field}>
             <label className={styles.label}>Описание</label>
-            <textarea
-              className={`${styles.input} ${styles.textarea}`}
+            <RichTextEditor
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={setDescription}
               placeholder="Необязательное описание"
             />
           </div>

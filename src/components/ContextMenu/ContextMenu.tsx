@@ -96,7 +96,6 @@ export function ContextMenu({
               className={`${styles.item} ${styles.itemDanger}`}
               onClick={() => handleAction(onDelete)}
             >
-              <span className={styles.icon}>×</span>
               Удалить
             </button>
           </>

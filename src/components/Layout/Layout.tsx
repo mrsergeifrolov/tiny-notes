@@ -185,6 +185,7 @@ export function Layout() {
             onEditTask={handleEditTask}
             onToggleComplete={toggleComplete}
             onMoveToTomorrow={moveToTomorrow}
+            onDeleteTask={deleteTask}
           />
         </div>
 
@@ -212,6 +213,7 @@ export function Layout() {
             onEditTask={handleEditTask}
             onToggleComplete={toggleComplete}
             onMoveToTomorrow={moveToTomorrow}
+            onDeleteTask={deleteTask}
           />
         </div>
 

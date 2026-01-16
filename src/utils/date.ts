@@ -75,3 +75,11 @@ export function getDayAbbreviation(date: Date | string): string {
   const abbreviations = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
   return abbreviations[dayIndex];
 }
+
+/** Format week range as "13.01.2026 - 19.01.2026" */
+export function formatWeekRange(dates: string[]): string {
+  if (dates.length === 0) return '';
+  const first = parseISO(dates[0]);
+  const last = parseISO(dates[dates.length - 1]);
+  return `${format(first, 'dd.MM.yyyy')} - ${format(last, 'dd.MM.yyyy')}`;
+}

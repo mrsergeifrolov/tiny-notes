@@ -17,11 +17,16 @@ export function useKeyboard({ onNewTask, selectedDate, setSelectedDate }: UseKey
       return;
     }
 
-    switch (event.key.toLowerCase()) {
-      case 'n':
-        event.preventDefault();
-        onNewTask();
-        break;
+    const key = event.key.toLowerCase();
+
+    // Support both English 'n' and Russian 'т' for new task
+    if (key === 'n' || key === 'т') {
+      event.preventDefault();
+      onNewTask();
+      return;
+    }
+
+    switch (key) {
 
       case 'arrowleft':
         event.preventDefault();

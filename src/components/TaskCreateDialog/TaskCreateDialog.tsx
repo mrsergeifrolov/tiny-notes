@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import type { KeyboardEvent } from 'react';
 import type { TaskArea, TaskColor } from '../../types';
 import { getToday, addDaysToDate, formatDateWithMonthYear } from '../../utils/date';
+import { RichTextEditor } from '../RichTextEditor/RichTextEditor';
 import styles from './TaskCreateDialog.module.css';
 
 interface TaskCreateDialogProps {
@@ -115,10 +116,9 @@ export function TaskCreateDialog({
 
           <div className={styles.field}>
             <label className={styles.label}>Описание</label>
-            <textarea
-              className={`${styles.input} ${styles.textarea}`}
+            <RichTextEditor
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={setDescription}
               placeholder="Необязательное описание"
             />
           </div>

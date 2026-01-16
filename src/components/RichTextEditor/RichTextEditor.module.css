@@ -1,0 +1,103 @@
+.editor {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-secondary);
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-primary);
+}
+
+.toolbarButton {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-fast);
+}
+
+.toolbarButton:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text-primary);
+}
+
+.toolbarButton.active {
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+}
+
+.separator {
+  width: 1px;
+  height: 28px;
+  background: var(--color-border-subtle);
+  margin: 0 var(--space-1);
+}
+
+.editorContent {
+  padding: var(--space-3);
+  min-height: 80px;
+  max-height: 200px;
+  overflow-y: auto;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
+
+.editorContent:focus {
+  outline: none;
+}
+
+.editor :global(.ProseMirror) {
+  outline: none;
+  min-height: 60px;
+}
+
+.editor :global(.ProseMirror p) {
+  margin: 0 0 var(--space-2) 0;
+}
+
+.editor :global(.ProseMirror p:last-child) {
+  margin-bottom: 0;
+}
+
+.editor :global(.ProseMirror ul),
+.editor :global(.ProseMirror ol) {
+  padding-left: var(--space-5);
+  margin: var(--space-2) 0;
+}
+
+.editor :global(.ProseMirror li) {
+  margin: var(--space-1) 0;
+}
+
+.editor :global(.ProseMirror strong) {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.editor :global(.ProseMirror em) {
+  font-style: italic;
+}
+
+/* Placeholder - using Tiptap Placeholder extension */
+.editor :global(.tiptap p.is-editor-empty:first-child::before) {
+  color: var(--color-text-muted);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

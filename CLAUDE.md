@@ -9,6 +9,8 @@ Minimalist task management app with three areas: Inbox, Week view, and Someday.
 - **Dexie.js** — IndexedDB wrapper for local storage
 - **dnd-kit** — drag-and-drop (@dnd-kit/core, @dnd-kit/sortable)
 - **date-fns** — date utilities with Russian locale
+- **Tiptap** — WYSIWYG editor (@tiptap/react, @tiptap/starter-kit)
+- **react-day-picker** — calendar date picker
 - **CSS Modules** — component styling
 
 ## Project Structure
@@ -59,7 +61,9 @@ interface Task {
 
 ### Week View
 - Shows Mon-Sun of current week
-- Navigation arrows switch weeks; date button (dd.mm.yyyy) returns to current week
+- Header displays: "Сегодня (dd.mm.yyyy)" + week range "dd.mm.yyyy - dd.mm.yyyy"
+- Navigation arrows switch weeks; today button returns to current week
+- Calendar picker (📅) for quick navigation to any date
 - Columns have min-width 140px with horizontal scroll if needed
 
 ### Day Column
@@ -69,13 +73,16 @@ interface Task {
 - **InlineTaskCreator** at bottom: title + description fields with + button
 
 ### Task Dialogs
-- **TaskCreateDialog** — for creating new tasks (hotkey: `n`)
+- **TaskCreateDialog** — for creating new tasks (hotkey: `n` or `т` for Russian layout)
 - **TaskDialog** — for editing existing tasks (double-click card)
 - Both have quick date buttons: "Сегодня" / "Завтра"
+- **RichTextEditor** — Tiptap-based WYSIWYG for description (bold, italic, lists)
+- Setting a date moves task to week area; clearing date moves back to original area
 
 ### Task Cards
-- Display title and description (if present)
+- Display title and description (HTML from RichTextEditor)
 - Checkbox, move-to-tomorrow button (→), context menu on right-click
+- Context menu available in all areas (inbox, week, someday) with delete option
 
 ### Persistence
 - All data stored in IndexedDB via Dexie.js
