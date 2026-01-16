@@ -1,9 +1,9 @@
 .taskCard {
   position: relative;
-  padding: 8px 10px;
-  border-radius: 6px;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
   cursor: grab;
-  transition: all 150ms ease;
+  transition: all var(--transition-fast);
   user-select: none;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .taskCard:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
 }
 
 .taskCard:hover .moveButton {
@@ -24,7 +24,7 @@
 }
 
 .isDragOverlay {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-lg);
   transform: rotate(2deg);
   cursor: grabbing;
 }
@@ -35,67 +35,67 @@
 
 .isCompleted .title {
   text-decoration: line-through;
-  color: #6b6b6b;
+  color: var(--color-text-muted);
 }
 
-/* Color variants */
+/* Color variants - Anthropic palette */
 .colorDefault {
-  background-color: #3d3d3d;
+  background-color: var(--color-task-default);
 }
 
 .colorOrange {
-  background-color: #D97706;
+  background-color: var(--color-task-orange);
 }
 
 .colorTerracotta {
-  background-color: #C2410C;
+  background-color: var(--color-task-terracotta);
 }
 
 .colorGrayBlue {
-  background-color: #64748B;
+  background-color: var(--color-task-slate);
 }
 
 .colorGreen {
-  background-color: #059669;
+  background-color: var(--color-task-sage);
 }
 
 .colorLavender {
-  background-color: #7C3AED;
+  background-color: var(--color-task-lavender);
 }
 
 .content {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: var(--space-3);
 }
 
 .checkbox {
   flex-shrink: 0;
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-radius: 4px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(250, 249, 240, 0.4);
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: all var(--transition-fast);
   margin-top: 2px;
 }
 
 .checkbox:hover {
-  border-color: rgba(255, 255, 255, 0.7);
-  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(250, 249, 240, 0.7);
+  background-color: rgba(250, 249, 240, 0.1);
 }
 
 .checkbox.checked {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(250, 249, 240, 0.3);
+  border-color: rgba(250, 249, 240, 0.5);
 }
 
 .checkmark {
   color: white;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
 }
 
@@ -105,37 +105,37 @@
 }
 
 .time {
-  font-size: 10px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 2px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: rgba(250, 249, 240, 0.7);
+  margin-bottom: var(--space-1);
 }
 
 .title {
-  font-size: 13px;
-  color: #f5f5f5;
-  line-height: 1.3;
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
   word-break: break-word;
 }
 
 .moveButton {
   position: absolute;
   top: 50%;
-  right: 4px;
+  right: var(--space-2);
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 12px;
+  border-radius: var(--radius-sm);
+  color: rgba(250, 249, 240, 0.6);
+  font-size: var(--font-size-sm);
   opacity: 0;
-  transition: all 150ms ease;
+  transition: all var(--transition-fast);
 }
 
 .moveButton:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(250, 249, 240, 0.2);
   color: white;
 }

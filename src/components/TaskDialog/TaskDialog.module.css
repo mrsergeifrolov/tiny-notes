@@ -1,7 +1,8 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,92 +10,92 @@
 }
 
 .dialog {
-  background-color: #2d2d2d;
-  border: 1px solid #404040;
-  border-radius: 12px;
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   width: 100%;
-  max-width: 440px;
+  max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--shadow-elevated);
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  border-bottom: 1px solid #404040;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #f5f5f5;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
 }
 
 .closeButton {
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  color: #a0a0a0;
-  font-size: 18px;
-  transition: all 150ms ease;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xl);
+  transition: all var(--transition-fast);
 }
 
 .closeButton:hover {
-  background-color: #404040;
-  color: #f5f5f5;
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
 }
 
 .content {
-  padding: 20px;
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-5);
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-2);
 }
 
 .label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #a0a0a0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
 }
 
 .input {
   width: 100%;
-  padding: 10px 12px;
-  background-color: #1a1a1a;
-  border: 1px solid #404040;
-  border-radius: 6px;
-  color: #f5f5f5;
-  font-size: 14px;
-  transition: border-color 150ms ease;
+  padding: var(--space-4) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+  transition: border-color var(--transition-fast);
 }
 
 .input:focus {
-  border-color: #D97706;
+  border-color: var(--color-accent);
   outline: none;
 }
 
 .textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
 }
 
 .row {
   display: flex;
-  gap: 12px;
+  gap: var(--space-4);
 }
 
 .row .field {
@@ -103,16 +104,16 @@
 
 .colorPicker {
   display: flex;
-  gap: 8px;
+  gap: var(--space-3);
 }
 
 .colorOption {
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
   border: 2px solid transparent;
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: all var(--transition-fast);
 }
 
 .colorOption:hover {
@@ -120,100 +121,102 @@
 }
 
 .colorOption.selected {
-  border-color: #f5f5f5;
+  border-color: var(--color-text-primary);
 }
 
 .colorDefault {
-  background-color: #3d3d3d;
+  background-color: var(--color-task-default);
 }
 
 .colorOrange {
-  background-color: #D97706;
+  background-color: var(--color-task-orange);
 }
 
 .colorTerracotta {
-  background-color: #C2410C;
+  background-color: var(--color-task-terracotta);
 }
 
 .colorGrayBlue {
-  background-color: #64748B;
+  background-color: var(--color-task-slate);
 }
 
 .colorGreen {
-  background-color: #059669;
+  background-color: var(--color-task-sage);
 }
 
 .colorLavender {
-  background-color: #7C3AED;
+  background-color: var(--color-task-lavender);
 }
 
 .checkbox {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-3);
   cursor: pointer;
 }
 
 .checkboxInput {
-  width: 18px;
-  height: 18px;
-  accent-color: #D97706;
+  width: 22px;
+  height: 22px;
+  accent-color: var(--color-accent);
   cursor: pointer;
 }
 
 .checkboxLabel {
-  font-size: 14px;
-  color: #f5f5f5;
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
 }
 
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
-  border-top: 1px solid #404040;
+  padding: var(--space-5) var(--space-6);
+  border-top: 1px solid var(--color-border);
 }
 
 .deleteButton {
-  padding: 10px 16px;
-  border-radius: 6px;
-  color: #DC2626;
-  font-size: 14px;
-  transition: all 150ms ease;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  color: var(--color-danger);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
 }
 
 .deleteButton:hover {
-  background-color: rgba(220, 38, 38, 0.2);
+  background-color: var(--color-danger-muted);
 }
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: var(--space-3);
 }
 
 .cancelButton {
-  padding: 10px 16px;
-  border-radius: 6px;
-  color: #a0a0a0;
-  font-size: 14px;
-  transition: all 150ms ease;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
 }
 
 .cancelButton:hover {
-  background-color: #404040;
-  color: #f5f5f5;
+  background-color: var(--color-surface-hover);
+  color: var(--color-text-primary);
 }
 
 .saveButton {
-  padding: 10px 20px;
-  border-radius: 6px;
-  background-color: #D97706;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent);
   color: white;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 150ms ease;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-fast);
 }
 
 .saveButton:hover {
-  background-color: #B45309;
+  background-color: var(--color-accent-hover);
 }

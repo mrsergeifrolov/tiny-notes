@@ -1,3 +1,93 @@
+/* Anthropic/Claude Design System */
+:root {
+  /* Core background colors - Anthropic's deep charcoal palette */
+  --color-bg-primary: #131314;
+  --color-bg-secondary: #1a1a1c;
+  --color-bg-tertiary: #232326;
+  --color-bg-elevated: #2a2a2d;
+
+  /* Surface colors for cards and containers */
+  --color-surface: #1e1e20;
+  --color-surface-hover: #272729;
+  --color-surface-active: #303033;
+
+  /* Text colors - warm whites and grays */
+  --color-text-primary: #faf9f0;
+  --color-text-secondary: #b8b5a8;
+  --color-text-muted: #7c7a70;
+  --color-text-disabled: #5a5850;
+
+  /* Border colors */
+  --color-border: #3a3a3d;
+  --color-border-subtle: #2d2d30;
+  --color-border-focus: var(--color-accent);
+
+  /* Anthropic's signature terracotta accent */
+  --color-accent: #d97757;
+  --color-accent-hover: #c4664a;
+  --color-accent-muted: rgba(217, 119, 87, 0.15);
+  --color-accent-subtle: rgba(217, 119, 87, 0.08);
+
+  /* Task priority colors - refined palette */
+  --color-task-default: #3d3d40;
+  --color-task-orange: #d97757;
+  --color-task-terracotta: #c45a3b;
+  --color-task-slate: #5a6b7a;
+  --color-task-sage: #4d8a6e;
+  --color-task-lavender: #7a6ba8;
+
+  /* State colors */
+  --color-danger: #d94f4f;
+  --color-danger-hover: #c43d3d;
+  --color-danger-muted: rgba(217, 79, 79, 0.15);
+  --color-success: #4d8a6e;
+
+  /* Typography - larger sizes as requested */
+  --font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-size-xs: 13px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+  --font-size-2xl: 28px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.3;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* Border radius - Anthropic style */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.5);
+
+  /* Transitions */
+  --transition-fast: 120ms ease-out;
+  --transition-normal: 200ms ease-out;
+  --transition-slow: 300ms ease-out;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,13 +101,14 @@ html, body, #root {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  background-color: #1a1a1a;
-  color: #f5f5f5;
-  font-size: 14px;
-  line-height: 1.5;
+  font-family: var(--font-family);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
 }
 
 button {
@@ -26,6 +117,7 @@ button {
   border: none;
   background: none;
   color: inherit;
+  font-size: var(--font-size-md);
 }
 
 input, textarea {
@@ -38,46 +130,48 @@ input, textarea {
 }
 
 input::placeholder, textarea::placeholder {
-  color: #6b6b6b;
+  color: var(--color-text-muted);
 }
 
-/* Scrollbar styling */
+/* Scrollbar styling - Anthropic aesthetic */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: var(--color-bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #404040;
-  border-radius: 4px;
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-bg-primary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #505050;
+  background: var(--color-text-muted);
 }
 
 /* Dialog/Modal backdrop */
 .dialog-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
 
-/* Focus visible outline */
+/* Focus visible outline - Anthropic accent */
 :focus-visible {
-  outline: 2px solid #D97706;
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
-/* Selection */
+/* Selection - warm accent */
 ::selection {
-  background: rgba(217, 119, 6, 0.3);
+  background: var(--color-accent-muted);
 }

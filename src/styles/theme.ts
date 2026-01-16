@@ -1,46 +1,48 @@
-// Anthropic-inspired dark theme colors
+// Anthropic/Claude Design System Theme
 export const theme = {
   colors: {
-    // Background colors
-    background: '#1a1a1a',
-    backgroundSecondary: '#242424',
-    backgroundTertiary: '#2d2d2d',
+    // Background colors - deep charcoal palette
+    background: '#131314',
+    backgroundSecondary: '#1a1a1c',
+    backgroundTertiary: '#232326',
+    backgroundElevated: '#2a2a2d',
 
     // Surface colors (for cards, dialogs)
-    surface: '#2d2d2d',
-    surfaceHover: '#363636',
-    surfaceActive: '#404040',
+    surface: '#1e1e20',
+    surfaceHover: '#272729',
+    surfaceActive: '#303033',
 
-    // Text colors
-    textPrimary: '#f5f5f5',
-    textSecondary: '#a0a0a0',
-    textMuted: '#6b6b6b',
+    // Text colors - warm whites and grays
+    textPrimary: '#faf9f0',
+    textSecondary: '#b8b5a8',
+    textMuted: '#7c7a70',
+    textDisabled: '#5a5850',
 
     // Border colors
-    border: '#404040',
-    borderLight: '#505050',
+    border: '#3a3a3d',
+    borderSubtle: '#2d2d30',
 
-    // Task priority colors (Anthropic palette)
-    taskDefault: '#3d3d3d',
-    taskOrange: '#D97706',
-    taskTerracotta: '#C2410C',
-    taskGrayBlue: '#64748B',
-    taskGreen: '#059669',
-    taskLavender: '#7C3AED',
+    // Task priority colors - refined palette
+    taskDefault: '#3d3d40',
+    taskOrange: '#d97757',
+    taskTerracotta: '#c45a3b',
+    taskGrayBlue: '#5a6b7a',
+    taskGreen: '#4d8a6e',
+    taskLavender: '#7a6ba8',
 
     // State colors
-    completed: '#4a4a4a',
-    completedText: '#6b6b6b',
+    completed: '#2a2a2d',
+    completedText: '#5a5850',
 
-    // Accent colors
-    accent: '#D97706',
-    accentHover: '#B45309',
-    danger: '#DC2626',
-    dangerHover: '#B91C1C',
+    // Accent colors - Anthropic terracotta
+    accent: '#d97757',
+    accentHover: '#c4664a',
+    danger: '#d94f4f',
+    dangerHover: '#c43d3d',
 
     // Today highlight
-    today: '#D97706',
-    todayBackground: 'rgba(217, 119, 6, 0.1)',
+    today: '#d97757',
+    todayBackground: 'rgba(217, 119, 87, 0.08)',
   },
 
   spacing: {
@@ -53,35 +55,39 @@ export const theme = {
   },
 
   borderRadius: {
-    sm: '4px',
-    md: '8px',
-    lg: '12px',
+    sm: '6px',
+    md: '10px',
+    lg: '14px',
+    xl: '18px',
   },
 
   fontSize: {
-    xs: '11px',
-    sm: '12px',
-    md: '14px',
-    lg: '16px',
-    xl: '18px',
+    xs: '13px',
+    sm: '14px',
+    md: '16px',
+    lg: '18px',
+    xl: '22px',
+    xxl: '28px',
   },
 
   fontWeight: {
     normal: 400,
     medium: 500,
     semibold: 600,
+    bold: 700,
   },
 
   transition: {
-    fast: '150ms ease',
-    normal: '200ms ease',
-    slow: '300ms ease',
+    fast: '120ms ease-out',
+    normal: '200ms ease-out',
+    slow: '300ms ease-out',
   },
 
   shadow: {
-    sm: '0 1px 2px rgba(0, 0, 0, 0.3)',
-    md: '0 4px 6px rgba(0, 0, 0, 0.4)',
-    lg: '0 10px 15px rgba(0, 0, 0, 0.5)',
+    sm: '0 1px 2px rgba(0, 0, 0, 0.25)',
+    md: '0 4px 12px rgba(0, 0, 0, 0.3)',
+    lg: '0 8px 24px rgba(0, 0, 0, 0.4)',
+    elevated: '0 12px 40px rgba(0, 0, 0, 0.5)',
   },
 };
 

@@ -4,20 +4,20 @@
 
 .input {
   width: 100%;
-  padding: 8px 10px;
-  background-color: #2d2d2d;
-  border: 1px solid #404040;
-  border-radius: 6px;
-  color: #f5f5f5;
-  font-size: 13px;
-  transition: border-color 150ms ease;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+  transition: border-color var(--transition-fast);
 }
 
 .input:focus {
-  border-color: #D97706;
+  border-color: var(--color-accent);
   outline: none;
 }
 
 .input::placeholder {
-  color: #6b6b6b;
+  color: var(--color-text-muted);
 }
