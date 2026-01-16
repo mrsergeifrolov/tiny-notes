@@ -41,8 +41,6 @@ interface Task {
   description?: string;
   area: 'inbox' | 'week' | 'someday';
   date?: string;        // "YYYY-MM-DD" for week tasks
-  time?: string;        // "HH:mm" start time
-  endTime?: string;     // "HH:mm" end time (auto-calculated if not set)
   order: number;
   completed: boolean;
   color?: 'orange' | 'terracotta' | 'gray-blue' | 'green' | 'lavender';
@@ -63,28 +61,15 @@ interface Task {
 - Navigation arrows switch weeks; date button (dd.mm.yyyy) returns to current week
 - No horizontal scrolling — 7 columns fill available space
 
-### Day Column Split Zones
-Each day column is divided into two zones:
-- **Timed Zone (70%)**: Shows tasks with time slots from 6:00–24:00
-  - TimeGrid component renders hour labels and gridlines
-  - Timed tasks positioned absolutely based on start time
-  - Task height calculated from duration (min 30 min display)
-  - Resize handles on timed tasks for adjusting duration
-- **Untimed Zone (30%)**: Shows tasks without specific times
-  - Sortable list for reordering
-  - "Без времени" header
-
-### Time Utilities (src/utils/date.ts)
-- `timeToMinutes(time)` / `minutesToTime(minutes)` — conversion
-- `getDurationMinutes(start, end)` — calculate duration
-- `snapTimeToInterval(time, interval)` — snap to 30-min intervals
-- `addMinutesToTime(time, minutes)` — time arithmetic
+### Day Column
+- Simple scrollable list of tasks with drag-and-drop reordering
+- Uses SortableContext for task reordering within a day
+- Tasks sorted by order, with completed tasks at the bottom
 
 ### Persistence
 - All data stored in IndexedDB via Dexie.js
 - Database name: `TinyNotesDB`
 - Single `tasks` table with indexes on `area`, `date`, `order`
-- Database v2 migration adds `endTime` field (auto-calculates 30-min duration for existing timed tasks)
 
 ## Styling
 

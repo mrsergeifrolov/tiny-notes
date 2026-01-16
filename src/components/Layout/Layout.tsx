@@ -33,7 +33,6 @@ export function Layout() {
     moveByDays,
     reorderTasks,
     finishDay,
-    updateTaskTime,
   } = useTasks();
 
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -176,7 +175,6 @@ export function Layout() {
             onMoveByDays={moveByDays}
             onFinishDay={finishDay}
             onDeleteTask={deleteTask}
-            onUpdateTaskTime={updateTaskTime}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />

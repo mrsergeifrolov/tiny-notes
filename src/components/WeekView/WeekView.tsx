@@ -14,7 +14,6 @@ interface WeekViewProps {
   onMoveByDays: (id: string, days: number) => void;
   onFinishDay: (date: string) => void;
   onDeleteTask: (id: string) => void;
-  onUpdateTaskTime?: (id: string, time: string, endTime: string) => void;
   selectedDate: string | null;
   setSelectedDate: (date: string | null) => void;
 }
@@ -28,7 +27,6 @@ export function WeekView({
   onMoveByDays,
   onFinishDay,
   onDeleteTask,
-  onUpdateTaskTime,
   selectedDate,
   setSelectedDate,
 }: WeekViewProps) {
@@ -87,7 +85,6 @@ export function WeekView({
             onMoveByDays={onMoveByDays}
             onFinishDay={() => onFinishDay(date)}
             onDeleteTask={onDeleteTask}
-            onUpdateTaskTime={onUpdateTaskTime}
             onClick={() => setSelectedDate(date)}
           />
         ))}

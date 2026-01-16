@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/database';
 import type { Task, TaskArea, TaskColor } from '../types';
-import { getToday, addDaysToDate, compareTime, addMinutesToTime } from '../utils/date';
+import { getToday, addDaysToDate } from '../utils/date';
 
 export function useTasks() {
   const tasks = useLiveQuery(() => db.tasks.toArray()) ?? [];
@@ -16,20 +16,16 @@ export function useTasks() {
   const getTasksByDate = (date: string): Task[] => {
     const dayTasks = tasks.filter(t => t.area === 'week' && t.date === date);
 
-    // Sort: timed tasks first (by time), then untimed (by order), then completed
-    const timedTasks = dayTasks
-      .filter(t => t.time && !t.completed)
-      .sort((a, b) => compareTime(a.time!, b.time!));
-
-    const untimedTasks = dayTasks
-      .filter(t => !t.time && !t.completed)
+    // Sort: incomplete by order, then completed by order
+    const incompleteTasks = dayTasks
+      .filter(t => !t.completed)
       .sort((a, b) => a.order - b.order);
 
     const completedTasks = dayTasks
       .filter(t => t.completed)
       .sort((a, b) => a.order - b.order);
 
-    return [...timedTasks, ...untimedTasks, ...completedTasks];
+    return [...incompleteTasks, ...completedTasks];
   };
 
   const createTask = async (
@@ -37,8 +33,6 @@ export function useTasks() {
     area: TaskArea,
     options?: {
       date?: string;
-      time?: string;
-      endTime?: string;
       description?: string;
       color?: TaskColor;
     }
@@ -50,16 +44,11 @@ export function useTasks() {
 
     const maxOrder = existingTasks.reduce((max, t) => Math.max(max, t.order), 0);
 
-    // Calculate default endTime if time is provided but endTime is not
-    const endTime = options?.endTime ?? (options?.time ? addMinutesToTime(options.time, 30) : undefined);
-
     const task: Task = {
       id: uuidv4(),
       title,
       area,
       date: area === 'week' ? (options?.date ?? getToday()) : undefined,
-      time: options?.time,
-      endTime,
       description: options?.description,
       color: options?.color,
       order: maxOrder + 1,
@@ -165,14 +154,6 @@ export function useTasks() {
     });
   };
 
-  const updateTaskTime = async (
-    id: string,
-    time: string,
-    endTime: string
-  ): Promise<void> => {
-    await updateTask(id, { time, endTime });
-  };
-
   return {
     tasks,
     getTasksByArea,
@@ -186,6 +167,5 @@ export function useTasks() {
     moveByDays,
     reorderTasks,
     finishDay,
-    updateTaskTime,
   };
 }

@@ -1,8 +1,7 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { TaskCard } from '../TaskCard/TaskCard';
-import { TimeGrid, HOUR_HEIGHT, START_HOUR, END_HOUR } from '../TimeGrid/TimeGrid';
 import { QuickInput } from '../QuickInput/QuickInput';
 import { getDayAbbreviation, formatDateWithMonthYear } from '../../utils/date';
 import type { Task } from '../../types';
@@ -20,7 +19,6 @@ interface DayColumnProps {
   onMoveByDays: (id: string, days: number) => void;
   onFinishDay: () => void;
   onDeleteTask: (id: string) => void;
-  onUpdateTaskTime?: (id: string, time: string, endTime: string) => void;
   onClick: () => void;
 }
 
@@ -36,7 +34,6 @@ export function DayColumn({
   onMoveByDays,
   onFinishDay,
   onDeleteTask,
-  onUpdateTaskTime,
   onClick,
 }: DayColumnProps) {
   const [showQuickInput, setShowQuickInput] = useState(false);
@@ -53,28 +50,8 @@ export function DayColumn({
     setShowQuickInput(false);
   }, [onCreateTask]);
 
-  // Split tasks into timed and untimed
-  const { timedTasks, untimedTasks } = useMemo(() => {
-    const timed: Task[] = [];
-    const untimed: Task[] = [];
-
-    for (const task of tasks) {
-      if (task.time) {
-        timed.push(task);
-      } else {
-        untimed.push(task);
-      }
-    }
-
-    return { timedTasks: timed, untimedTasks: untimed };
-  }, [tasks]);
-
   const incompleteTasks = tasks.filter(t => !t.completed);
   const showFinishButton = isToday && incompleteTasks.length > 0;
-
-  // Calculate time grid height
-  const totalHours = END_HOUR - START_HOUR;
-  const timeGridHeight = totalHours * HOUR_HEIGHT;
 
   return (
     <div
@@ -102,54 +79,23 @@ export function DayColumn({
       </div>
 
       <div className={styles.content}>
-        {/* Timed tasks zone - 70% */}
-        <div className={styles.timedZone}>
-          <div
-            className={styles.timeGridContainer}
-            style={{ height: timeGridHeight }}
+        <div className={styles.taskList}>
+          <SortableContext
+            items={tasks.map(t => t.id)}
+            strategy={verticalListSortingStrategy}
           >
-            <TimeGrid />
-            <div className={styles.timedTasks}>
-              {timedTasks.map(task => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  isTimedTask
-                  hourHeight={HOUR_HEIGHT}
-                  startHour={START_HOUR}
-                  onEdit={() => onEditTask(task)}
-                  onToggleComplete={() => onToggleComplete(task.id)}
-                  onMoveToTomorrow={() => onMoveToTomorrow(task.id)}
-                  onMoveByDays={(days) => onMoveByDays(task.id, days)}
-                  onDelete={() => onDeleteTask(task.id)}
-                  onUpdateTime={onUpdateTaskTime ? (time, endTime) => onUpdateTaskTime(task.id, time, endTime) : undefined}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Untimed tasks zone - 30% */}
-        <div className={styles.untimedZone}>
-          <div className={styles.untimedHeader}>Без времени</div>
-          <div className={styles.untimedTasks}>
-            <SortableContext
-              items={untimedTasks.map(t => t.id)}
-              strategy={verticalListSortingStrategy}
-            >
-              {untimedTasks.map(task => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  onEdit={() => onEditTask(task)}
-                  onToggleComplete={() => onToggleComplete(task.id)}
-                  onMoveToTomorrow={() => onMoveToTomorrow(task.id)}
-                  onMoveByDays={(days) => onMoveByDays(task.id, days)}
-                  onDelete={() => onDeleteTask(task.id)}
-                />
-              ))}
-            </SortableContext>
-          </div>
+            {tasks.map(task => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                onEdit={() => onEditTask(task)}
+                onToggleComplete={() => onToggleComplete(task.id)}
+                onMoveToTomorrow={() => onMoveToTomorrow(task.id)}
+                onMoveByDays={(days) => onMoveByDays(task.id, days)}
+                onDelete={() => onDeleteTask(task.id)}
+              />
+            ))}
+          </SortableContext>
         </div>
       </div>
 
