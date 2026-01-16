@@ -66,7 +66,7 @@ export function ContextMenu({
           onClick={() => handleAction(onMoveToTomorrow)}
         >
           <span className={styles.icon}>→</span>
-          Tomorrow
+          На завтра
         </button>
 
         {onMoveByDays && (
@@ -76,7 +76,7 @@ export function ContextMenu({
               onClick={() => handleAction(() => onMoveByDays(2))}
             >
               <span className={styles.icon}>→</span>
-              +2 days
+              +2 дня
             </button>
 
             <button
@@ -84,7 +84,7 @@ export function ContextMenu({
               onClick={() => handleAction(() => onMoveByDays(7))}
             >
               <span className={styles.icon}>→</span>
-              +1 week
+              +1 неделя
             </button>
           </>
         )}
@@ -97,7 +97,7 @@ export function ContextMenu({
               onClick={() => handleAction(onDelete)}
             >
               <span className={styles.icon}>×</span>
-              Delete
+              Удалить
             </button>
           </>
         )}

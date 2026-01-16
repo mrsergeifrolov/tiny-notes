@@ -8,7 +8,7 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: var(--space-5) var(--space-5);
   border-bottom: 1px solid var(--color-border-subtle);
 }
@@ -19,23 +19,6 @@
   color: var(--color-text-primary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-}
-
-.addButton {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-lg);
-  transition: all var(--transition-fast);
-}
-
-.addButton:hover {
-  background-color: var(--color-surface-hover);
-  color: var(--color-text-primary);
 }
 
 .taskList {
@@ -63,4 +46,33 @@
   height: 120px;
   color: var(--color-text-muted);
   font-size: var(--font-size-md);
+}
+
+.footer {
+  padding: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  justify-content: center;
+}
+
+.addButton {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: 24px;
+  font-weight: var(--font-weight-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.addButton:hover {
+  background-color: var(--color-accent-subtle);
+  color: var(--color-accent);
+  border-color: var(--color-accent-muted);
+  transform: scale(1.05);
 }

@@ -102,6 +102,15 @@
   flex: 1;
 }
 
+.duration {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
 .colorPicker {
   display: flex;
   gap: var(--space-3);

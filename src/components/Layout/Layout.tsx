@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { DndContext, pointerWithin, DragOverlay, useSensor, useSensors, PointerSensor } from '@dnd-kit/core';
-import type { DragEndEvent, DragOverEvent, DragStartEvent } from '@dnd-kit/core';
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import { Sidebar } from '../Sidebar/Sidebar';
 import { WeekView } from '../WeekView/WeekView';
 import { DeleteZone } from '../DeleteZone/DeleteZone';
@@ -33,6 +33,7 @@ export function Layout() {
     moveByDays,
     reorderTasks,
     finishDay,
+    updateTaskTime,
   } = useTasks();
 
   const [editingTask, setEditingTask] = useState<Task | null>(null);
@@ -76,7 +77,7 @@ export function Layout() {
     setIsDragging(true);
   }, []);
 
-  const handleDragOver = useCallback((_event: DragOverEvent) => {
+  const handleDragOver = useCallback(() => {
     // Could be used for visual feedback
   }, []);
 
@@ -156,7 +157,7 @@ export function Layout() {
         <div className={styles.sidebar}>
           <Sidebar
             area="inbox"
-            title="Inbox"
+            title="Входящие"
             tasks={getTasksByArea('inbox')}
             onCreateTask={() => handleCreateTask('inbox')}
             onEditTask={handleEditTask}
@@ -175,6 +176,7 @@ export function Layout() {
             onMoveByDays={moveByDays}
             onFinishDay={finishDay}
             onDeleteTask={deleteTask}
+            onUpdateTaskTime={updateTaskTime}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
@@ -183,7 +185,7 @@ export function Layout() {
         <div className={`${styles.sidebar} ${styles.sidebarRight}`}>
           <Sidebar
             area="someday"
-            title="Someday"
+            title="Когда-нибудь"
             tasks={getTasksByArea('someday')}
             onCreateTask={() => handleCreateTask('someday')}
             onEditTask={handleEditTask}

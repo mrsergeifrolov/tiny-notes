@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../db/database';
 import type { Task, TaskArea, TaskColor } from '../types';
-import { getToday, addDaysToDate, compareTime } from '../utils/date';
+import { getToday, addDaysToDate, compareTime, addMinutesToTime } from '../utils/date';
 
 export function useTasks() {
   const tasks = useLiveQuery(() => db.tasks.toArray()) ?? [];
@@ -38,6 +38,7 @@ export function useTasks() {
     options?: {
       date?: string;
       time?: string;
+      endTime?: string;
       description?: string;
       color?: TaskColor;
     }
@@ -49,12 +50,16 @@ export function useTasks() {
 
     const maxOrder = existingTasks.reduce((max, t) => Math.max(max, t.order), 0);
 
+    // Calculate default endTime if time is provided but endTime is not
+    const endTime = options?.endTime ?? (options?.time ? addMinutesToTime(options.time, 30) : undefined);
+
     const task: Task = {
       id: uuidv4(),
       title,
       area,
       date: area === 'week' ? (options?.date ?? getToday()) : undefined,
       time: options?.time,
+      endTime,
       description: options?.description,
       color: options?.color,
       order: maxOrder + 1,
@@ -160,6 +165,14 @@ export function useTasks() {
     });
   };
 
+  const updateTaskTime = async (
+    id: string,
+    time: string,
+    endTime: string
+  ): Promise<void> => {
+    await updateTask(id, { time, endTime });
+  };
+
   return {
     tasks,
     getTasksByArea,
@@ -173,5 +186,6 @@ export function useTasks() {
     moveByDays,
     reorderTasks,
     finishDay,
+    updateTaskTime,
   };
 }

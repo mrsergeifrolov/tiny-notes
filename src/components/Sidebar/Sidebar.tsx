@@ -27,17 +27,12 @@ export function Sidebar({
     id: area,
   });
 
+  const emptyMessage = area === 'inbox' ? 'Нет задач' : 'Нет задач';
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.header}>
         <span className={styles.title}>{title}</span>
-        <button
-          className={styles.addButton}
-          onClick={onCreateTask}
-          title="Add task"
-        >
-          +
-        </button>
       </div>
 
       <div className={styles.taskList}>
@@ -61,11 +56,21 @@ export function Sidebar({
               ))
             ) : (
               <div className={styles.emptyState}>
-                {area === 'inbox' ? 'No tasks in inbox' : 'No someday tasks'}
+                {emptyMessage}
               </div>
             )}
           </SortableContext>
         </div>
+      </div>
+
+      <div className={styles.footer}>
+        <button
+          className={styles.addButton}
+          onClick={onCreateTask}
+          title="Добавить задачу"
+        >
+          +
+        </button>
       </div>
     </div>
   );

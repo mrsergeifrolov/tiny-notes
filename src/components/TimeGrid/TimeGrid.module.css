@@ -1,0 +1,32 @@
+.timeGrid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 0;
+  padding-top: 16px; /* Space for first hour label */
+}
+
+.hourRow {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.hourLabel {
+  width: 28px;
+  flex-shrink: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-align: right;
+  padding-right: var(--space-2);
+  transform: translateY(-50%);
+  line-height: 1;
+}
+
+.hourLine {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-border-subtle);
+}
