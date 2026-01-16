@@ -4,26 +4,26 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding-top: 100px;
   z-index: 1000;
 }
 
 .modal {
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-elevated);
+  border: 1px solid var(--color-border);
 }
 
 .calendar {
-  --rdp-cell-size: 40px;
+  --rdp-cell-size: 44px;
   --rdp-accent-color: var(--color-accent);
-  --rdp-background-color: rgba(217, 119, 6, 0.15);
+  --rdp-background-color: var(--color-accent-muted);
   --rdp-accent-color-dark: var(--color-accent);
   --rdp-outline: 2px solid var(--color-accent);
   --rdp-outline-selected: 2px solid var(--color-accent);
@@ -33,13 +33,16 @@
 
 /* Navigation buttons */
 .calendar :global(.rdp-nav) {
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
 .calendar :global(.rdp-button_previous),
 .calendar :global(.rdp-button_next) {
+  width: 36px;
+  height: 36px;
   color: var(--color-text-secondary);
   border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
 }
 
 .calendar :global(.rdp-button_previous:hover),
@@ -52,7 +55,8 @@
 .calendar :global(.rdp-caption_label) {
   color: var(--color-text-primary);
   font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-lg);
+  text-transform: capitalize;
 }
 
 /* Weekday headers */
@@ -60,13 +64,17 @@
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-bottom: var(--space-2);
 }
 
 /* Day cells */
 .calendar :global(.rdp-day) {
   color: var(--color-text-primary);
   border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-md);
+  transition: all var(--transition-fast);
 }
 
 .calendar :global(.rdp-day:hover:not(.rdp-day_selected)) {
@@ -82,15 +90,32 @@
 .calendar :global(.rdp-day_today) {
   font-weight: var(--font-weight-bold);
   color: var(--color-accent);
+  position: relative;
+}
+
+.calendar :global(.rdp-day_today)::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--color-accent);
+  border-radius: 50%;
 }
 
 .calendar :global(.rdp-day_today.rdp-day_selected) {
   color: var(--color-text-on-accent);
 }
 
+.calendar :global(.rdp-day_today.rdp-day_selected)::after {
+  background: var(--color-text-on-accent);
+}
+
 .calendar :global(.rdp-day_outside) {
-  color: var(--color-text-muted);
-  opacity: 0.5;
+  color: var(--color-text-disabled);
+  opacity: 0.6;
 }
 
 /* Month grid */
@@ -99,5 +124,10 @@
 }
 
 .calendar :global(.rdp-month) {
-  gap: var(--space-2);
+  gap: var(--space-3);
+}
+
+/* Week rows */
+.calendar :global(.rdp-weeks) {
+  gap: var(--space-1);
 }

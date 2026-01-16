@@ -93,6 +93,33 @@
   font-style: italic;
 }
 
+.editor :global(.ProseMirror code) {
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  color: var(--color-accent);
+}
+
+.editor :global(.ProseMirror blockquote) {
+  border-left: 3px solid var(--color-accent);
+  padding-left: var(--space-4);
+  margin: var(--space-3) 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.editor :global(.ProseMirror a) {
+  color: var(--color-accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.editor :global(.ProseMirror a:hover) {
+  color: var(--color-accent-hover);
+}
+
 /* Placeholder - using Tiptap Placeholder extension */
 .editor :global(.tiptap p.is-editor-empty:first-child::before) {
   color: var(--color-text-muted);
@@ -100,4 +127,32 @@
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+/* Toolbar icon styles */
+.underlineIcon {
+  text-decoration: underline;
+}
+
+.strikeIcon {
+  text-decoration: line-through;
+}
+
+.codeIcon {
+  font-size: 10px;
+  font-family: monospace;
+}
+
+.quoteIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.linkIcon {
+  font-size: 12px;
+}
+
+.link {
+  color: var(--color-accent);
+  text-decoration: underline;
 }

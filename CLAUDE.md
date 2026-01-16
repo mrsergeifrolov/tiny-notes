@@ -9,7 +9,7 @@ Minimalist task management app with three areas: Inbox, Week view, and Someday.
 - **Dexie.js** — IndexedDB wrapper for local storage
 - **dnd-kit** — drag-and-drop (@dnd-kit/core, @dnd-kit/sortable)
 - **date-fns** — date utilities with Russian locale
-- **Tiptap** — WYSIWYG editor (@tiptap/react, @tiptap/starter-kit)
+- **Tiptap** — WYSIWYG editor (@tiptap/react, @tiptap/starter-kit, @tiptap/extension-link, @tiptap/extension-underline)
 - **react-day-picker** — calendar date picker
 - **CSS Modules** — component styling
 
@@ -61,9 +61,9 @@ interface Task {
 
 ### Week View
 - Shows Mon-Sun of current week
-- Header displays: "Сегодня (dd.mm.yyyy)" + week range "dd.mm.yyyy - dd.mm.yyyy"
-- Navigation arrows switch weeks; today button returns to current week
-- Calendar picker (📅) for quick navigation to any date
+- Header displays: "← Сегодня (dd.mm.yyyy) →" + week range below
+- Navigation arrows centered around "Сегодня" button; arrows switch weeks
+- Calendar picker (📅) in left corner for quick navigation to any date
 - Columns have min-width 140px with horizontal scroll if needed
 
 ### Day Column
@@ -75,9 +75,10 @@ interface Task {
 ### Task Dialogs
 - **TaskCreateDialog** — for creating new tasks (hotkey: `n` or `т` for Russian layout)
 - **TaskDialog** — for editing existing tasks (double-click card)
-- Both have quick date buttons: "Сегодня" / "Завтра"
-- **RichTextEditor** — Tiptap-based WYSIWYG for description (bold, italic, lists)
-- Setting a date moves task to week area; clearing date moves back to original area
+- Dialog width: 720px (wider for comfortable editing)
+- Quick buttons: "Сегодня" / "Завтра" / "Всякое" / "Когда-нибудь"
+- **RichTextEditor** — Tiptap WYSIWYG (bold, italic, underline, strike, code, blockquote, links, lists)
+- Setting a date moves task to week area; "Всякое"/"Когда-нибудь" moves to inbox/someday
 
 ### Task Cards
 - Display title and description (HTML from RichTextEditor)
@@ -103,4 +104,4 @@ UI is in Russian:
 - Day names: "пн", "вт", "ср", "чт", "пт", "сб", "вс"
 - Date format: "16 января 2026"
 - Context menu: "На завтра", "+2 дня", "+1 неделя", "Удалить"
-- Quick dates: "Сегодня", "Завтра"
+- Quick buttons: "Сегодня", "Завтра", "Всякое", "Когда-нибудь"

@@ -14,7 +14,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   width: 100%;
-  max-width: 500px;
+  max-width: 720px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--shadow-elevated);
@@ -140,6 +140,11 @@
   opacity: 0.8;
 }
 
+.areaButton {
+  background-color: var(--color-bg-tertiary);
+  border-color: var(--color-border-subtle);
+}
+
 .row {
   display: flex;
   gap: var(--space-4);
@@ -212,10 +217,39 @@
 }
 
 .checkboxInput {
+  appearance: none;
+  -webkit-appearance: none;
   width: 22px;
   height: 22px;
-  accent-color: var(--color-accent);
+  border-radius: var(--radius-sm);
+  border: 2px solid rgba(217, 119, 87, 0.4);
+  background-color: rgba(217, 119, 87, 0.1);
   cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.checkboxInput:hover {
+  border-color: rgba(217, 119, 87, 0.6);
+  background-color: rgba(217, 119, 87, 0.15);
+}
+
+.checkboxInput:checked {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.checkboxInput:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--color-text-on-accent);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .checkboxLabel {

@@ -63,32 +63,6 @@ export function WeekView({
       <div className={styles.header}>
         <div className={styles.headerLeft}>
           <button
-            className={styles.navButton}
-            onClick={() => navigateWeek('prev')}
-            title="Предыдущая неделя"
-          >
-            ←
-          </button>
-        </div>
-
-        <div className={styles.headerCenter}>
-          <button className={styles.todayButton} onClick={goToToday}>
-            Сегодня ({formatDateNumeric(new Date())})
-          </button>
-          <div className={styles.weekRange}>
-            {formatWeekRange(dates)}
-          </div>
-        </div>
-
-        <div className={styles.headerRight}>
-          <button
-            className={styles.navButton}
-            onClick={() => navigateWeek('next')}
-            title="Следующая неделя"
-          >
-            →
-          </button>
-          <button
             className={styles.calendarButton}
             onClick={() => setShowCalendar(true)}
             title="Выбрать дату"
@@ -96,6 +70,33 @@ export function WeekView({
             📅
           </button>
         </div>
+
+        <div className={styles.headerCenter}>
+          <div className={styles.navigationRow}>
+            <button
+              className={styles.navButton}
+              onClick={() => navigateWeek('prev')}
+              title="Предыдущая неделя"
+            >
+              ←
+            </button>
+            <button className={styles.todayButton} onClick={goToToday}>
+              Сегодня ({formatDateNumeric(new Date())})
+            </button>
+            <button
+              className={styles.navButton}
+              onClick={() => navigateWeek('next')}
+              title="Следующая неделя"
+            >
+              →
+            </button>
+          </div>
+          <div className={styles.weekRange}>
+            {formatWeekRange(dates)}
+          </div>
+        </div>
+
+        <div className={styles.headerRight} />
       </div>
 
       {showCalendar && (

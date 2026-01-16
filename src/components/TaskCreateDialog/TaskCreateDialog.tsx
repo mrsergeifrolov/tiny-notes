@@ -49,6 +49,7 @@ export function TaskCreateDialog({
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(defaultDate ?? (defaultArea === 'week' ? today : ''));
   const [color, setColor] = useState<TaskColor | undefined>(undefined);
+  const [targetArea, setTargetArea] = useState<TaskArea | null>(null);
 
   useEffect(() => {
     const handleEscape = (e: globalThis.KeyboardEvent) => {
@@ -63,7 +64,15 @@ export function TaskCreateDialog({
   const handleCreate = useCallback(() => {
     if (!title.trim()) return;
 
-    const area: TaskArea = date ? 'week' : defaultArea;
+    // Determine area: targetArea (if set explicitly), or based on date, or defaultArea
+    let area: TaskArea;
+    if (targetArea) {
+      area = targetArea;
+    } else if (date) {
+      area = 'week';
+    } else {
+      area = defaultArea;
+    }
 
     onCreate({
       title: title.trim(),
@@ -72,7 +81,7 @@ export function TaskCreateDialog({
       color,
       area,
     });
-  }, [title, description, date, color, defaultArea, onCreate]);
+  }, [title, description, date, color, defaultArea, targetArea, onCreate]);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
@@ -89,6 +98,11 @@ export function TaskCreateDialog({
 
   const setQuickDate = useCallback((quickDate: string) => {
     setDate(quickDate);
+  }, []);
+
+  const handleSetArea = useCallback((area: TaskArea) => {
+    setDate('');
+    setTargetArea(area);
   }, []);
 
   return (
@@ -134,19 +148,35 @@ export function TaskCreateDialog({
             <div className={styles.quickDates}>
               <button
                 type="button"
-                className={`${styles.quickDateButton} ${date === today ? styles.active : ''}`}
-                onClick={() => setQuickDate(today)}
+                className={`${styles.quickDateButton} ${date === today && !targetArea ? styles.active : ''}`}
+                onClick={() => { setQuickDate(today); setTargetArea(null); }}
               >
                 Сегодня
                 <span className={styles.quickDateSub}>{formatDateWithMonthYear(today)}</span>
               </button>
               <button
                 type="button"
-                className={`${styles.quickDateButton} ${date === tomorrow ? styles.active : ''}`}
-                onClick={() => setQuickDate(tomorrow)}
+                className={`${styles.quickDateButton} ${date === tomorrow && !targetArea ? styles.active : ''}`}
+                onClick={() => { setQuickDate(tomorrow); setTargetArea(null); }}
               >
                 Завтра
                 <span className={styles.quickDateSub}>{formatDateWithMonthYear(tomorrow)}</span>
+              </button>
+              <button
+                type="button"
+                className={`${styles.quickDateButton} ${styles.areaButton} ${targetArea === 'inbox' ? styles.active : ''}`}
+                onClick={() => handleSetArea('inbox')}
+              >
+                Всякое
+                <span className={styles.quickDateSub}>без даты</span>
+              </button>
+              <button
+                type="button"
+                className={`${styles.quickDateButton} ${styles.areaButton} ${targetArea === 'someday' ? styles.active : ''}`}
+                onClick={() => handleSetArea('someday')}
+              >
+                Когда-нибудь
+                <span className={styles.quickDateSub}>без даты</span>
               </button>
             </div>
           </div>

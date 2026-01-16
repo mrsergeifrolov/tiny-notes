@@ -38,6 +38,12 @@
   gap: var(--space-1);
 }
 
+.navigationRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .weekRange {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);

@@ -39,11 +39,19 @@ All components use CSS Modules (`.module.css` files).
 - Manages editingTask state for TaskDialog
 
 ### RichTextEditor
-- Wraps Tiptap editor with StarterKit + Placeholder extensions
-- Toolbar: Bold (B), Italic (I), bullet list (•), numbered list (1.)
+- Wraps Tiptap editor with StarterKit + Placeholder + Link + Underline extensions
+- Toolbar: Bold, Italic, Underline, Strike | Code, Blockquote, Link | bullet list, numbered list
 - Returns HTML string; handles empty content normalization
+- Link insertion via prompt dialog
 
 ### CalendarPicker
 - Modal with react-day-picker for date selection
-- Russian locale, styled for dark theme
-- Used in WeekView header for quick week navigation
+- Russian locale, styled for dark theme with blur backdrop
+- Larger cells (44px), dot indicator under today's date
+- Used in WeekView header (left corner) for quick week navigation
+
+### TaskDialog / TaskCreateDialog
+- Width: 720px for comfortable editing
+- Quick buttons: "Сегодня", "Завтра", "Всякое", "Когда-нибудь"
+- Area buttons clear date and set target area (inbox/someday)
+- Custom pastel terracotta checkbox styling (TaskDialog only)
