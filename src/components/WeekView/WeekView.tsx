@@ -4,12 +4,12 @@ import { DayColumn } from '../DayColumn/DayColumn';
 import { CalendarPicker } from '../CalendarPicker/CalendarPicker';
 import { SyncIndicator, type SyncStatus } from '../SyncIndicator/SyncIndicator';
 import { getToday, getWeekDates, formatDateNumeric, formatWeekRange } from '../../utils/date';
-import type { Task } from '../../types';
+import type { Task, TaskArea } from '../../types';
 import styles from './WeekView.module.css';
 
 interface WeekViewProps {
   getTasksByDate: (date: string) => Task[];
-  onQuickCreateTask: (date: string, title?: string, description?: string) => void;
+  onOpenCreateDialog: (area: TaskArea, date?: string) => void;
   onEditTask: (task: Task) => void;
   onToggleComplete: (id: string) => void;
   onMoveToTomorrow: (id: string) => void;
@@ -25,7 +25,7 @@ interface WeekViewProps {
 
 export function WeekView({
   getTasksByDate,
-  onQuickCreateTask,
+  onOpenCreateDialog,
   onEditTask,
   onToggleComplete,
   onMoveToTomorrow,
@@ -109,6 +109,13 @@ export function WeekView({
         </div>
 
         <div className={styles.headerRight}>
+          <button
+            className={styles.addButton}
+            onClick={() => onOpenCreateDialog('inbox')}
+            title="Создать задачу (N)"
+          >
+            +
+          </button>
           <SyncIndicator status={syncStatus} />
         </div>
       </div>
@@ -129,7 +136,6 @@ export function WeekView({
             tasks={getTasksByDate(date)}
             isToday={date === today}
             isSelected={date === selectedDate}
-            onQuickCreateTask={(title, description) => onQuickCreateTask(date, title, description)}
             onEditTask={onEditTask}
             onToggleComplete={onToggleComplete}
             onMoveToTomorrow={onMoveToTomorrow}

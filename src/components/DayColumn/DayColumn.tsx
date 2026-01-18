@@ -1,7 +1,6 @@
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { TaskCard } from '../TaskCard/TaskCard';
-import { InlineTaskCreator } from '../InlineTaskCreator/InlineTaskCreator';
 import { getDayAbbreviation, formatDateWithMonthYear } from '../../utils/date';
 import type { Task } from '../../types';
 import styles from './DayColumn.module.css';
@@ -11,7 +10,6 @@ interface DayColumnProps {
   tasks: Task[];
   isToday: boolean;
   isSelected: boolean;
-  onQuickCreateTask: (title: string, description?: string) => void;
   onEditTask: (task: Task) => void;
   onToggleComplete: (id: string) => void;
   onMoveToTomorrow: (id: string) => void;
@@ -26,7 +24,6 @@ export function DayColumn({
   tasks,
   isToday,
   isSelected,
-  onQuickCreateTask,
   onEditTask,
   onToggleComplete,
   onMoveToTomorrow,
@@ -89,10 +86,6 @@ export function DayColumn({
             ))}
           </SortableContext>
         </div>
-      </div>
-
-      <div className={styles.footer}>
-        <InlineTaskCreator onSubmit={onQuickCreateTask} />
       </div>
     </div>
   );

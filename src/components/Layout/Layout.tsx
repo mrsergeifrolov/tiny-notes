@@ -64,12 +64,6 @@ export function Layout() {
     setCreatingTask({ area, date });
   }, []);
 
-  const handleQuickCreateTask = useCallback(async (area: TaskArea, date?: string, title?: string, description?: string) => {
-    if (title) {
-      await createTask(title, area, { date, description });
-    }
-  }, [createTask]);
-
   const handleCreateTask = useCallback(async (data: {
     title: string;
     description?: string;
@@ -204,7 +198,6 @@ export function Layout() {
             area="inbox"
             title="Всякое"
             tasks={getTasksByArea('inbox')}
-            onQuickCreateTask={(title, description) => handleQuickCreateTask('inbox', undefined, title, description)}
             onEditTask={handleEditTask}
             onToggleComplete={toggleComplete}
             onMoveToTomorrow={moveToTomorrow}
@@ -215,7 +208,7 @@ export function Layout() {
         <div className={styles.weekView}>
           <WeekView
             getTasksByDate={getTasksByDate}
-            onQuickCreateTask={(date, title, description) => handleQuickCreateTask('week', date, title, description)}
+            onOpenCreateDialog={handleOpenCreateDialog}
             onEditTask={handleEditTask}
             onToggleComplete={toggleComplete}
             onMoveToTomorrow={moveToTomorrow}
@@ -235,7 +228,6 @@ export function Layout() {
             area="someday"
             title="Когда-нибудь"
             tasks={getTasksByArea('someday')}
-            onQuickCreateTask={(title, description) => handleQuickCreateTask('someday', undefined, title, description)}
             onEditTask={handleEditTask}
             onToggleComplete={toggleComplete}
             onMoveToTomorrow={moveToTomorrow}

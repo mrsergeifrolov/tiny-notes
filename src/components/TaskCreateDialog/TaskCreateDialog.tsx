@@ -1,8 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { KeyboardEvent } from 'react';
+import { format, parseISO } from 'date-fns';
 import type { TaskArea, TaskColor } from '../../types';
 import { getToday, addDaysToDate, formatDateWithMonthYear } from '../../utils/date';
 import { RichTextEditor } from '../RichTextEditor/RichTextEditor';
+import { CalendarPicker } from '../CalendarPicker/CalendarPicker';
 import styles from './TaskCreateDialog.module.css';
 
 interface TaskCreateDialogProps {
@@ -50,6 +52,7 @@ export function TaskCreateDialog({
   const [date, setDate] = useState(defaultDate ?? (defaultArea === 'week' ? today : ''));
   const [color, setColor] = useState<TaskColor | undefined>(undefined);
   const [targetArea, setTargetArea] = useState<TaskArea | null>(null);
+  const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
     const handleEscape = (e: globalThis.KeyboardEvent) => {
@@ -139,12 +142,34 @@ export function TaskCreateDialog({
 
           <div className={styles.field}>
             <label className={styles.label}>Дата</label>
-            <input
-              type="date"
-              className={styles.input}
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
+            <div className={styles.dateInputWrapper}>
+              <input
+                type="text"
+                className={styles.dateInput}
+                value={date ? format(parseISO(date), 'dd.MM.yyyy') : ''}
+                placeholder="дд.мм.гггг"
+                readOnly
+                onClick={() => setShowCalendar(true)}
+              />
+              <button
+                type="button"
+                className={styles.calendarButton}
+                onClick={() => setShowCalendar(true)}
+              >
+                📅
+              </button>
+            </div>
+            {showCalendar && (
+              <CalendarPicker
+                selectedDate={date || undefined}
+                onDateSelect={(d) => {
+                  setDate(d);
+                  setShowCalendar(false);
+                  setTargetArea(null);
+                }}
+                onClose={() => setShowCalendar(false)}
+              />
+            )}
             <div className={styles.quickDates}>
               <button
                 type="button"

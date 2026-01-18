@@ -93,6 +93,51 @@
   min-height: 100px;
 }
 
+/* Date input */
+.dateInputWrapper {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.dateInput {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.dateInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.dateInput:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.calendarButton {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  transition: all var(--transition-fast);
+}
+
+.calendarButton:hover {
+  background-color: var(--color-surface-hover);
+}
+
 /* Quick date buttons */
 .quickDates {
   display: flex;

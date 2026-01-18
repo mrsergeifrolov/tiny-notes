@@ -71,3 +71,38 @@ export default defineConfig([
   },
 ])
 ```
+
+## Docker Deployment
+
+The application can be deployed using Docker for production environments.
+
+### Prerequisites
+
+- Docker and Docker Compose installed
+- `.env` file with Supabase credentials:
+  ```bash
+  VITE_SUPABASE_URL=https://your-project.supabase.co
+  VITE_SUPABASE_ANON_KEY=your-anon-key
+  ```
+
+### Build and Run
+
+```bash
+# Build the Docker image
+docker-compose build
+
+# Run the container
+docker-compose up -d
+```
+
+The application will be available at: http://localhost:51973
+
+### Auto-restart
+
+The container is configured with `restart: always`, so it will automatically start when Docker Desktop launches.
+
+### Stopping the Container
+
+```bash
+docker-compose down
+```
